@@ -1,0 +1,54 @@
+/* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+
+@font-face { 
+	src: url("fonts/SPNTSB.TTF"); 
+	fontFamily: SapientSansBold; 
+	fontStyle:normal;
+	fontWeight: bold;
+	embedAsCFF: false; 
+}
+
+s|TabbedViewNavigatorApplication
+{
+	backgroundColor: #363636;
+}
+s|View
+{
+	backgroundColor: #363636;
+}
+
+s|ActionBar
+{
+	backgroundImage: Embed(source="assets/actionBar/actionBar.png");
+	skinClass: ClassReference("skins.CustomActionBarSkin2");
+}
+
+s|TabbedViewNavigator
+{
+	skinClass: ClassReference("skins.CustomTabbedViewNavigatorSkin");
+}
+
+s|TabbedViewNavigator #tabBar
+{
+	chromeColor: #000000;
+	color: #FFFFFF;
+	fontSize: 14;
+	fontFamily: SapientSansBold;
+	skinClass: ClassReference("skins.CustomTabbedViewNavigatorTabBarSkin");
+}
+
+s|TabbedViewNavigator s|ButtonBarButton:upAndSelected
+{
+	color: #FFFFFF;
+	
+}
+s|TabbedViewNavigator s|ButtonBarButton:up
+{
+	color: #999999;
+}
+s|List.hCarouselStyle
+{
+	selectionColor: #FFFFFF;
+	deSelectedColor: #929292;
+}

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark">
+	<!-- host component -->
+	<fx:Metadata>
+		[HostComponent("spark.components.ActionBar")]
+	</fx:Metadata>
+	
+	<!-- states -->
+	<s:states>
+		<s:State name="titleContentWithActionAndNavigation" />
+		<s:State name="titleContentWithNavigation" />
+		<s:State name="titleContentWithAction" />
+		<s:State name="titleContent" />
+		<s:State name="titleWithActionAndNavigation" />
+		<s:State name="titleWithNavigation" />
+		<s:State name="titleWithAction" />
+		<s:State name="title" />
+	</s:states>
+	<!-- In case you would like to draw it manually later - nick velloff
+	<s:Rect x="0" y="0" width="100%" height="44">
+		<s:fill>
+			<s:SolidColor alpha="1" color="#212121" />
+		</s:fill>
+	</s:Rect>
+	<s:Rect x="0" y="44" width="100%" height="1">
+		<s:fill>
+			<s:SolidColor alpha="1" color="#1c1c1c" />
+		</s:fill>
+	</s:Rect>
+	<s:Rect x="0" y="45" width="100%" height="1">
+		<s:fill>
+			<s:SolidColor alpha="1" color="#2b2b2b" />
+		</s:fill>
+	</s:Rect>
+	<s:Rect x="0" y="46" width="100%" height="1">
+		<s:fill>
+			<s:SolidColor alpha="1" color="#2e2e2e" />
+		</s:fill>
+	</s:Rect>
+	-->
+	
+	<s:Image source="{getStyle('backgroundImage')}" />
+	
+	<!-- SkinParts
+	name=titleGroup, type=spark.components.Group, required=false
+	name=actionGroup, type=spark.components.Group, required=false
+	name=navigationGroup, type=spark.components.Group, required=false
+	name=titleDisplay, type=spark.core.IDisplayText, required=false
+	-->
+</s:Skin>

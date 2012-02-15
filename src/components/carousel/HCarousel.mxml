@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" backgroundAlpha="0">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			
+			private var _carouselItems:ArrayCollection;
+			
+			[Bindable]
+			public function get carouselItems():ArrayCollection
+			{
+				return _carouselItems;
+			}
+
+			public function set carouselItems(value:ArrayCollection):void
+			{
+				_carouselItems = value;
+			}
+
+		]]>
+	</fx:Script>
+	
+	<s:List id="pagedList" 
+			styleName="hCarouselStyle"
+			contentBackgroundAlpha="0" 
+			dataProvider="{carouselItems}"
+			width="100%" height="100%"
+			verticalScrollPolicy="off" horizontalScrollPolicy="on"
+			pageScrollingEnabled="true"
+			itemRenderer="components.carousel.HCarouselItemRenderer"
+			skinClass="components.carousel.PagedListSkin">
+		<s:layout>
+			<s:TileLayout orientation="rows" requestedRowCount="1" 
+						  columnWidth="{pagedList.width}" rowHeight="{pagedList.height}" 
+						  verticalGap="0" horizontalGap="0" horizontalAlign="center" verticalAlign="middle" />
+		</s:layout>
+		
+	</s:List>
+	
+</s:View>

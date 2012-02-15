@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	
+	<homeCarouselImages>
+		<image source="assets/homeCarouselImages/ProductHeroFPO.jpg" />
+		<image source="assets/homeCarouselImages/ProductHeroFPO_sm.jpg" />
+		<image source="assets/homeCarouselImages/ProductHeroFPO.jpg" />
+		<image source="assets/homeCarouselImages/ProductHeroFPO_sm.jpg" />
+		<image source="assets/homeCarouselImages/ProductHeroFPO.jpg" />
+	</homeCarouselImages>
+
+</config>
