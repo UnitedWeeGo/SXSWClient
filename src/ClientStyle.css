@@ -21,7 +21,7 @@ s|View
 s|ActionBar
 {
 	backgroundImage: Embed(source="assets/actionBar/actionBar.png");
-	skinClass: ClassReference("skins.CustomActionBarSkin2");
+	skinClass: ClassReference("skins.CustomActionBarSkin");
 }
 
 s|TabbedViewNavigator

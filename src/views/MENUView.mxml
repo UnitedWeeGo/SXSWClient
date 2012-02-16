@@ -1,6 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
-		xmlns:s="library://ns.adobe.com/flex/spark" title="">
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:carousel="components.carousel.*"
+		xmlns:categorySelector="components.categorySelector.*"
+		creationComplete="view1_creationCompleteHandler(event)" title="">
+	
+	
+	<fx:Script>
+		<![CDATA[
+			import model.ConfigModel;
+			
+			import mx.collections.ArrayCollection;
+			import mx.events.FlexEvent;
+			//768 x 449 hero image dims
+			
+			[Bindable]
+			private var _heroCarouselItems:ArrayCollection;
+			
+			protected function view1_creationCompleteHandler(event:FlexEvent):void
+			{
+				_heroCarouselItems = ConfigModel.getInstance().getCarouselItemsPerMenuCategoryWithIndex(0);
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<carousel:HCarousel x="0" y="0" width="768" height="449" carouselItems="{_heroCarouselItems}" />
+	<s:Image source="assets/miscUI/menuCarouselShadow.png" scaleMode="stretch" x="0" y="445" width="768" height="4" />
+	<categorySelector:CategoryList x="0" y="449" width="385" height="457"/>
+	
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>

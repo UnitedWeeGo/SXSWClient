@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
-	
+
 	<homeCarouselImages>
 		<image source="assets/homeCarouselImages/ProductHeroFPO.jpg" />
 		<image source="assets/homeCarouselImages/ProductHeroFPO_sm.jpg" />
@@ -9,4 +9,148 @@
 		<image source="assets/homeCarouselImages/ProductHeroFPO.jpg" />
 	</homeCarouselImages>
 
+	<MenuCategory>
+		<name><![CDATA[Sandwiches]]></name>
+		
+		<MenuSubCategory>
+			<name><![CDATA[Deli Sandwiches]]></name>
+			
+			<MenuItem itemPrice="3.30" heroSource="assets/menuItemCarouselImages/ProductHeroFPO.jpg">
+				<name><![CDATA[Spring Break]]></name>
+				
+				<MenuItemOption default="true">
+					<name><![CDATA[Smoked Turkey]]></name>
+				</MenuItemOption>
+				<MenuItemOption default="true">
+					<name><![CDATA[Swiss]]></name>
+				</MenuItemOption>
+				<MenuItemOption default="true">
+					<name><![CDATA[Bacon]]></name>
+				</MenuItemOption>
+				<MenuItemOption default="true">
+					<name><![CDATA[Lettuce]]></name>
+				</MenuItemOption>
+				<MenuItemOption default="true">
+					<name><![CDATA[Tomato]]></name>
+				</MenuItemOption>
+				<MenuItemOption addlCost="1.40">
+					<name><![CDATA[Ranch Dressing]]></name>
+				</MenuItemOption>
+				
+				<!-- Optional items, not active by default -->
+				<MenuItemOption addlCost="2.40">
+					<name><![CDATA[Roast beef]]></name>
+				</MenuItemOption>
+				<MenuItemOption addlCost=".40">
+					<name><![CDATA[Cheddar]]></name>
+				</MenuItemOption>
+				<MenuItemOption addlCost=".80">
+					<name><![CDATA[Provolone]]></name>
+				</MenuItemOption>
+				<MenuItemOption>
+					<name><![CDATA[Mustard]]></name>
+				</MenuItemOption>
+				<MenuItemOption>
+					<name><![CDATA[Mayo]]></name>
+				</MenuItemOption>
+				<MenuItemOption>
+					<name><![CDATA[Vinegar]]></name>
+				</MenuItemOption>
+			</MenuItem>
+			
+			<MenuItem itemPrice="0" heroSource="assets/menuItemCarouselImages/ProductHeroFPO.jpg">
+				<name><![CDATA[Detention]]></name>
+				
+				<MenuItemOption  default="true">
+					<name><![CDATA[Roast Beef]]></name>
+				</MenuItemOption>
+				<MenuItemOption default="true">
+					<name><![CDATA[Provolone]]></name>
+				</MenuItemOption>
+				<MenuItemOption default="true">
+					<name><![CDATA[Onions]]></name>
+				</MenuItemOption>
+				<MenuItemOption default="true">
+					<name><![CDATA[Red Peppers]]></name>
+				</MenuItemOption>
+				<MenuItemOption default="true">
+					<name><![CDATA[Green Peppers]]></name>
+				</MenuItemOption>
+				<MenuItemOption default="true">
+					<name><![CDATA[Mushroom]]></name>
+				</MenuItemOption>
+				<MenuItemOption default="true">
+					<name><![CDATA[Mayo]]></name>
+				</MenuItemOption>
+				<MenuItemOption default="true">
+					<name><![CDATA[Oil]]></name>
+				</MenuItemOption>
+				<MenuItemOption default="true">
+					<name><![CDATA[Vinegar]]></name>
+				</MenuItemOption>
+			</MenuItem>
+			
+		</MenuSubCategory>
+		
+		<MenuSubCategory>
+			<name><![CDATA[Veggie Sandwiches]]></name>
+			<MenuItem itemPrice="0" heroSource="assets/menuItemCarouselImages/ProductHeroFPO.jpg">
+				<name><![CDATA[The Librarian]]></name>
+				
+				<MenuItemOption  default="true">
+					<name><![CDATA[Cream Cheese]]></name>
+				</MenuItemOption>
+				<MenuItemOption default="true">
+					<name><![CDATA[Mozzarella]]></name>
+				</MenuItemOption>
+				<MenuItemOption default="true">
+					<name><![CDATA[Cheddar]]></name>
+				</MenuItemOption>
+				<MenuItemOption default="true">
+					<name><![CDATA[Swiss]]></name>
+				</MenuItemOption>
+				<MenuItemOption default="true">
+					<name><![CDATA[Tomato]]></name>
+				</MenuItemOption>
+				
+				<!-- Optional items, not active by default -->
+				<MenuItemOption>
+					<name><![CDATA[Mushroom]]></name>
+				</MenuItemOption>
+				<MenuItemOption>
+					<name><![CDATA[Mayo]]></name>
+				</MenuItemOption>
+				<MenuItemOption>
+					<name><![CDATA[Oil]]></name>
+				</MenuItemOption>
+				<MenuItemOption>
+					<name><![CDATA[Vinegar]]></name>
+				</MenuItemOption>
+			</MenuItem>
+		</MenuSubCategory>
+		
+	</MenuCategory>
+	
+	<MenuCategory>
+		<name><![CDATA[Sides]]></name>
+		
+		<MenuSubCategory>
+			<name><![CDATA[Miss Vickie's Kettle Chips]]></name>
+			
+			<MenuItem itemPrice=".50" heroSource="assets/menuItemCarouselImages/ProductHeroFPO.jpg">
+				<name><![CDATA[Jalapeno]]></name>
+			</MenuItem>
+			<MenuItem itemPrice=".50">
+				<name><![CDATA[Simply Sea Salt]]></name>
+			</MenuItem>
+			<MenuItem itemPrice=".50">
+				<name><![CDATA[Smokehouse BBQ]]></name>
+			</MenuItem>
+			<MenuItem itemPrice=".50">
+				<name><![CDATA[Salt & Vinegar]]></name>
+			</MenuItem>
+		</MenuSubCategory>
+	</MenuCategory>
+	
+	
 </config>

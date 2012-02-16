@@ -7,16 +7,22 @@ package model
 	import flash.net.URLRequest;
 	
 	import mx.collections.ArrayCollection;
+	
+	import vo.MenuCategory;
+	import vo.MenuItem;
+	import vo.MenuSubCategory;
 
 	public class ConfigModel
 	{
 		public static var instance:ConfigModel;
 		
 		private var _heroCarouselItems:ArrayCollection;
+		private var _menuCategories:Vector.<MenuCategory>;
 		
 		public function ConfigModel( pvt:SingletonEnforcer )
 		{
 			_heroCarouselItems = new ArrayCollection();
+			_menuCategories = new Vector.<MenuCategory>();
 			//loadTestData();
 			loadConfig();
 		}
@@ -43,12 +49,39 @@ package model
 		{
 			var cXML:XML = new XML(e.target.data);
 			var homeCarouselImageList:XMLList = cXML.homeCarouselImages.image;
-			for (var i:int=0; i<homeCarouselImageList.length(); i++)
+			for (var a:int=0; a<homeCarouselImageList.length(); a++)
 			{
 				var ci:HCarouselItem = new HCarouselItem();
-				ci.imagePath = homeCarouselImageList[i].@source;
+				ci.imagePath = homeCarouselImageList[a].@source;
 				_heroCarouselItems.addItem(ci);
 			}
+			// MenuCategory passed XML, child objects created internally
+			var menuCategoryList:XMLList = cXML.MenuCategory;
+			for (var b:int=0; b<menuCategoryList.length(); b++)
+			{
+				var mc:MenuCategory = new MenuCategory();
+				mc.processConfigXML(menuCategoryList[b]);
+				_menuCategories.push(mc);
+			}
+		}
+		
+		public function getCarouselItemsPerMenuCategoryWithIndex(index:int):ArrayCollection
+		{
+			var ac:ArrayCollection = new ArrayCollection();
+			var menuCategory:MenuCategory = _menuCategories[index];
+			for (var a:int=0; a<menuCategory.menuSubCategories.length; a++)
+			{
+				var menuSubCategory:MenuSubCategory = menuCategory.menuSubCategories[a];
+				for (var b:int=0; b<menuSubCategory.menuItems.length; b++)
+				{
+					var menuItem:MenuItem = menuSubCategory.menuItems[b];
+					if (menuItem.heroSource.length == 0) continue;
+					var ci:HCarouselItem = new HCarouselItem();
+					ci.imagePath = menuItem.heroSource;
+					ac.addItem(ci);
+				}
+			}
+			return ac;
 		}
 		
 		// Getters / Setters
