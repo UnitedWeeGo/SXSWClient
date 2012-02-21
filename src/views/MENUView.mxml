@@ -3,15 +3,21 @@
 		xmlns:s="library://ns.adobe.com/flex/spark"
 		xmlns:carousel="components.carousel.*"
 		xmlns:categorySelector="components.categorySelector.*"
-		creationComplete="view1_creationCompleteHandler(event)" title="">
+		creationComplete="view1_creationCompleteHandler(event)" title="" xmlns:menuItemSelector="components.menuItemSelector.*">
 	
 	
 	<fx:Script>
 		<![CDATA[
+			import events.MenuItemAdded;
+			
 			import model.ConfigModel;
 			
 			import mx.collections.ArrayCollection;
 			import mx.events.FlexEvent;
+			
+			import spark.events.IndexChangeEvent;
+			
+			import vo.MenuCategory;
 			//768 x 449 hero image dims
 			
 			[Bindable]
@@ -19,16 +25,40 @@
 			
 			protected function view1_creationCompleteHandler(event:FlexEvent):void
 			{
+				addEventListener(MenuItemAdded.MENU_ITEM_SELECTED, handleMenuItemSelected);
+				// set defaults
 				_heroCarouselItems = ConfigModel.getInstance().getCarouselItemsPerMenuCategoryWithIndex(0);
+				var selectedCat:MenuCategory = ConfigModel.getInstance().menuCategories.getItemAt(0) as MenuCategory;
+				menuItemSelector.menuSubCategories = selectedCat.menuSubCategories;
+				
+			}
+			
+			protected function categorylist1_changeHandler(event:IndexChangeEvent):void
+			{
+				_heroCarouselItems = ConfigModel.getInstance().getCarouselItemsPerMenuCategoryWithIndex(event.newIndex);
+				
+				var selectedCat:MenuCategory = ConfigModel.getInstance().menuCategories.getItemAt(event.newIndex) as MenuCategory;
+				menuItemSelector.menuSubCategories = selectedCat.menuSubCategories;
+			}
+			
+			private function handleMenuItemSelected(event:MenuItemAdded):void
+			{
+				trace(event.menuItem.name + ' was added');
 			}
 			
 		]]>
 	</fx:Script>
 	
 	<carousel:HCarousel x="0" y="0" width="768" height="449" carouselItems="{_heroCarouselItems}" />
-	<s:Image source="assets/miscUI/menuCarouselShadow.png" scaleMode="stretch" x="0" y="445" width="768" height="4" />
-	<categorySelector:CategoryList x="0" y="449" width="385" height="457"/>
-	
+	<s:Image source="assets/miscUI/menuCarouselShadow.png" x="0" y="446" />
+	<s:Rect width="385" height="1" x="0" y="450">
+		<s:fill>
+			<s:SolidColor color="#464646" />
+		</s:fill>
+	</s:Rect>
+	<categorySelector:CategoryList x="0" y="451" width="385" height="458" change="categorylist1_changeHandler(event)"/>
+	<menuItemSelector:MenuItemSelector id="menuItemSelector" x="386" y="451" />
+									   
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>

@@ -152,5 +152,67 @@
 		</MenuSubCategory>
 	</MenuCategory>
 	
+	<MenuCategory>
+		<name><![CDATA[Drinks]]></name>
+		
+		<MenuSubCategory>
+			<name><![CDATA[Specialty]]></name>
+			
+			<MenuItem itemPrice="0" heroSource="assets/menuItemCarouselImages/ProductHeroFPO.jpg">
+				<name><![CDATA[Dublin Dr. Pepper]]></name>
+			</MenuItem>
+			<MenuItem itemPrice="0" heroSource="assets/menuItemCarouselImages/ProductHeroFPO.jpg">
+				<name><![CDATA[Mexican Coke]]></name>
+			</MenuItem>
+			<MenuItem itemPrice="0">
+				<name><![CDATA[Sweet Leaf Tea]]></name>
+			</MenuItem>
+		</MenuSubCategory>
+		<MenuSubCategory>
+			<name><![CDATA[Other]]></name>
+			
+			<MenuItem itemPrice="0" heroSource="assets/menuItemCarouselImages/ProductHeroFPO.jpg">
+				<name><![CDATA[Water]]></name>
+			</MenuItem>
+			<MenuItem itemPrice="0" heroSource="assets/menuItemCarouselImages/ProductHeroFPO.jpg">
+				<name><![CDATA[Lemonade]]></name>
+			</MenuItem>
+			<MenuItem itemPrice="0">
+				<name><![CDATA[Diet Coke]]></name>
+			</MenuItem>
+		</MenuSubCategory>
+	</MenuCategory>
+	
+	<!-- SCROLL TEST -->
+	<MenuCategory>
+		<name><![CDATA[Drinks]]></name>
+		
+		<MenuSubCategory>
+			<name><![CDATA[Specialty]]></name>
+			
+			<MenuItem itemPrice="0" heroSource="assets/menuItemCarouselImages/ProductHeroFPO.jpg">
+				<name><![CDATA[Dublin Dr. Pepper]]></name>
+			</MenuItem>
+			<MenuItem itemPrice="0" heroSource="assets/menuItemCarouselImages/ProductHeroFPO.jpg">
+				<name><![CDATA[Mexican Coke]]></name>
+			</MenuItem>
+			<MenuItem itemPrice="0">
+				<name><![CDATA[Sweet Leaf Tea]]></name>
+			</MenuItem>
+		</MenuSubCategory>
+		<MenuSubCategory>
+			<name><![CDATA[Other]]></name>
+			
+			<MenuItem itemPrice="0" heroSource="assets/menuItemCarouselImages/ProductHeroFPO.jpg">
+				<name><![CDATA[Water]]></name>
+			</MenuItem>
+			<MenuItem itemPrice="0" heroSource="assets/menuItemCarouselImages/ProductHeroFPO.jpg">
+				<name><![CDATA[Lemonade]]></name>
+			</MenuItem>
+			<MenuItem itemPrice="0">
+				<name><![CDATA[Diet Coke]]></name>
+			</MenuItem>
+		</MenuSubCategory>
+	</MenuCategory>
 	
 </config>

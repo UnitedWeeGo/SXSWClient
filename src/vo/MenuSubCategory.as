@@ -1,14 +1,17 @@
 package vo
 {
+	import mx.collections.ArrayCollection;
+
 	public class MenuSubCategory
 	{
 		public var name:String;
-		public var menuItems:Vector.<MenuItem>;
+		public var menuItems:ArrayCollection;
 		
 		public function MenuSubCategory()
 		{
-			menuItems = new Vector.<MenuItem>();
+			menuItems = new ArrayCollection();
 		}
+		
 		public function processConfigXML(xml:XML):void
 		{
 			name = xml.name.valueOf();
@@ -17,7 +20,7 @@ package vo
 			{
 				var mi:MenuItem = new MenuItem();
 				mi.processConfigXML(menuItemList[b]);
-				menuItems.push(mi);
+				menuItems.addItem(mi);
 			}
 		}
 	}

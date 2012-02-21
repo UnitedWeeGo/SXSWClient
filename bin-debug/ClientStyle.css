@@ -1,0 +1,151 @@
+/* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+
+@font-face { 
+	src: url("fonts/SPNTSB.TTF"); 
+	fontFamily: SapientSansBold; 
+	fontStyle:normal;
+	fontWeight: bold;
+	embedAsCFF: false; 
+}
+@font-face { 
+	src: url("fonts/SPNTSB.TTF"); 
+	fontFamily: SapientSansBold_CFF; 
+	fontStyle:normal;
+	fontWeight: bold;
+	embedAsCFF: true; 
+}
+
+
+@font-face { 
+	src: url("fonts/SPNTSK.TTF"); 
+	fontFamily: SapientSansBlack; 
+	fontStyle:normal;
+	fontWeight: bold;
+	embedAsCFF: false; 
+}
+@font-face { 
+	src: url("fonts/SPNTSK.TTF"); 
+	fontFamily: SapientSansBlack_CFF; 
+	fontStyle:normal;
+	fontWeight: bold;
+	embedAsCFF: true; 
+}
+
+@font-face { 
+	src: url("fonts/SPNTSR.TTF"); 
+	fontFamily: SapientSansRegular; 
+	fontStyle:normal;
+	embedAsCFF: false; 
+}
+@font-face { 
+	src: url("fonts/SPNTSR.TTF"); 
+	fontFamily: SapientSansRegular_CFF; 
+	fontStyle:normal;
+	embedAsCFF: true; 
+}
+
+s|TabbedViewNavigatorApplication
+{
+	backgroundColor: #363636;
+}
+s|View
+{
+	backgroundColor: #363636;
+}
+
+s|ActionBar
+{
+	backgroundImage: Embed(source="assets/actionBar/actionBar.png");
+	skinClass: ClassReference("skins.CustomActionBarSkin");
+}
+
+s|TabbedViewNavigator
+{
+	skinClass: ClassReference("skins.CustomTabbedViewNavigatorSkin");
+}
+
+s|TabbedViewNavigator #tabBar
+{
+	chromeColor: #000000;
+	color: #FFFFFF;
+	fontSize: 14;
+	fontFamily: SapientSansBold;
+	fontWeight: bold;
+	skinClass: ClassReference("skins.CustomTabbedViewNavigatorTabBarSkin");
+}
+
+s|TabbedViewNavigator s|ButtonBarButton:upAndSelected
+{
+	color: #FFFFFF;
+	
+}
+s|TabbedViewNavigator s|ButtonBarButton:up
+{
+	color: #999999;
+}
+
+s|List.hCarouselStyle
+{
+	skinClass: ClassReference("components.carousel.PagedListSkin");
+	horizontalScrollPolicy: on;
+	verticalScrollPolicy: off;
+	contentBackgroundAlpha: 0;
+	selectionColor: #FFFFFF;
+	deSelectedColor: #929292;
+}
+
+s|List.vCategoryListStyle
+{
+	horizontalScrollPolicy: off;
+	verticalScrollPolicy: auto;
+	contentBackgroundAlpha: 0;
+}
+s|List.vCategoryListStyle s|VScrollBar
+{
+	skinClass: ClassReference("spark.skins.mobile.supportClasses.MobileSkin");
+}
+s|ItemRenderer.catListItemRenderer
+{
+	normalBackgroundColor: #212121;
+	selectedBackgroundColor: #F55925;
+	normalColor: #959595;
+	selectedColor: #FFFFFF;
+	normalBGColor: #282828;
+	selectedBGColor: #e95524;
+}
+
+s|Label.catName
+{
+	fontFamily: SapientSansBold_CFF;
+	fontSize: 36;
+	fontWeight: bold;
+}
+s|Label.catNameBG
+{
+	fontFamily: SapientSansBlack_CFF;
+	fontSize: 149;
+	fontWeight: bold;
+	trackingLeft: -5;
+	trackingRight: -5;
+}
+
+s|ItemRenderer.subCatListItemRenderer
+{
+	normalBackgroundColor: #101010;
+	selectedBackgroundColor: #F55925;
+	normalColor: #959595;
+	selectedColor: #FFFFFF;
+}
+s|Label.subCatTitle
+{
+	fontFamily: SapientSansBold_CFF;
+	fontSize: 26;
+	fontWeight: bold;
+	color:#FFFFFF;
+}
+s|Label.subCatName
+{
+	fontFamily: SapientSansRegular_CFF;
+	fontSize: 26;
+}

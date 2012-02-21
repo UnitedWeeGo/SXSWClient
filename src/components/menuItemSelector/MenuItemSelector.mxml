@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" title="MenuItemSelector">
+	
+	<s:Scroller id="base" x="0" y="0" width="382" height="458" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+		
+		<s:Group id="contain">
+			
+			<s:Rect width="764" height="100%"> <!-- background -->
+				<s:fill>
+					<s:SolidColor color="#101010" />
+				</s:fill>
+			</s:Rect>
+			
+			<!-- Subcategory view -->
+			<s:VGroup id="left" x="0" y="0" width="382" height="458" gap="1">
+				
+				<s:Group width="382" height="75">
+					<s:Rect width="382" height="75"> <!-- background -->
+						<s:fill>
+							<s:SolidColor color="#212121" />
+						</s:fill>
+					</s:Rect>
+					<s:Label id="choices" styleName="subCatTitle" left="27" verticalCenter="-2" text="CHOICES" />
+				</s:Group>
+				
+				<s:List id="subCategoryList" styleName="vCategoryListStyle"
+						itemRenderer="components.menuItemSelector.MenuSubCategoryListItemRenderer" requireSelection="false"
+						dataProvider="{menuSubCategories}" change="list1_changeHandler(event)">
+					<s:layout>
+						<s:TileLayout orientation="rows" requestedColumnCount="1"
+									  columnWidth="382"
+									  verticalGap="1" horizontalGap="0" />
+					</s:layout>
+				</s:List>
+			</s:VGroup>
+			
+			<!-- items view -->
+			<s:VGroup id="right" x="382" y="0" width="382" height="458" gap="1">
+				
+				<s:Group width="382" height="75" click="back_clickHandler()">
+					<s:Rect width="382" height="75"> <!-- background -->
+						<s:fill>
+							<s:SolidColor color="#212121" />
+						</s:fill>
+					</s:Rect>
+					<s:Image source="assets/miscUI/menuItemSelectorBack.png" x="28" verticalCenter="0" />
+					<s:Label id="back" styleName="subCatTitle" left="57" right="28" verticalCenter="-2" />
+				</s:Group>
+				
+				<s:List id="itemList" styleName="vCategoryListStyle"
+						itemRenderer="components.menuItemSelector.MenuItemListItemRenderer" requireSelection="false"
+						dataProvider="{_selectedMenuItems}" change="itemList_changeHandler(event)">
+					<s:layout>
+						<s:TileLayout orientation="rows" requestedColumnCount="1"
+									  columnWidth="382"
+									  verticalGap="1" horizontalGap="0" />
+					</s:layout>
+				</s:List>
+				
+			</s:VGroup>
+		</s:Group>
+	</s:Scroller>
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			
+			import spark.events.IndexChangeEvent;
+			
+			import vo.MenuSubCategory;
+			
+			private var _menuSubCategories:ArrayCollection;
+			private var _selectedSubCategory:MenuSubCategory;
+			
+			[Bindable]
+			private var _selectedMenuItems:ArrayCollection;
+			
+			protected function list1_changeHandler(event:IndexChangeEvent):void
+			{
+				_selectedSubCategory = _menuSubCategories.getItemAt(event.newIndex) as MenuSubCategory;
+				_selectedMenuItems = _selectedSubCategory.menuItems;
+				back.text = _selectedSubCategory.name.toUpperCase();
+				toItems.play();
+			}
+
+			[Bindable]
+			public function get menuSubCategories():ArrayCollection
+			{
+				return _menuSubCategories;
+			}
+
+			public function set menuSubCategories(value:ArrayCollection):void
+			{
+				_menuSubCategories = value;
+				if (base.viewport.horizontalScrollPosition > 0)
+				{
+					back_clickHandler();
+				}
+			}
+
+			
+			protected function back_clickHandler():void
+			{
+				subCategoryList.selectedIndex = -1;
+				itemList.selectedIndex = -1;
+				fromItems.play();
+			}
+			
+			protected function itemList_changeHandler(event:IndexChangeEvent):void
+			{
+				// TODO Auto-generated method stub
+				
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<s:Animate id="toItems" target="{base.viewport}" duration="500" startDelay="100">
+			<s:motionPaths>
+				<s:SimpleMotionPath property="horizontalScrollPosition" valueTo="382"/>
+			</s:motionPaths>
+			<s:easer>
+				<s:Power exponent="3" />
+			</s:easer>
+		</s:Animate>
+		<s:Animate id="fromItems" target="{base.viewport}" duration="500" startDelay="0">
+			<s:motionPaths>
+				<s:SimpleMotionPath property="horizontalScrollPosition" valueTo="0"/>
+			</s:motionPaths>
+			<s:easer>
+				<s:Power exponent="3" />
+			</s:easer>
+		</s:Animate>
+	</fx:Declarations>
+</s:View>

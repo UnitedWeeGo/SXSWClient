@@ -1,27 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:TabbedViewNavigatorApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
-								  xmlns:s="library://ns.adobe.com/flex/spark" creationComplete="tabbedviewnavigatorapplication1_creationCompleteHandler(event)">
+								  xmlns:s="library://ns.adobe.com/flex/spark" 
+								  preinitialize="tabbedviewnavigatorapplication1_preinitializeHandler(event)"
+								  creationComplete="tabbedviewnavigatorapplication1_creationCompleteHandler(event)">
 	
 	
 	<fx:Style source="ClientStyle.css" />
 	
 	<fx:Script>
 		<![CDATA[
+			import model.ConfigModel;
 			import mx.events.FlexEvent;
+			
+			protected function tabbedviewnavigatorapplication1_preinitializeHandler(event:FlexEvent):void
+			{
+				ConfigModel.getInstance();
+			}
 			
 			protected function tabbedviewnavigatorapplication1_creationCompleteHandler(event:FlexEvent):void
 			{
-				
 				
 			}
 			
 		]]>
 	</fx:Script>
-	<s:ViewNavigator label="HOME" width="100%" height="100%" firstView="views.HOMEView"/>
 	<s:ViewNavigator label="MENU" width="100%" height="100%" firstView="views.MENUView"/>
+	<s:ViewNavigator label="HOME" width="100%" height="100%" firstView="views.HOMEView"/>
+	
 	<s:ViewNavigator label="CURRENT ORDER" width="100%" height="100%" firstView="views.CURRENTORDERView"/>
-	
-	
 	
 	<fx:Declarations>
 		

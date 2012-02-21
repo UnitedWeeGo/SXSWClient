@@ -17,12 +17,12 @@ package model
 		public static var instance:ConfigModel;
 		
 		private var _heroCarouselItems:ArrayCollection;
-		private var _menuCategories:Vector.<MenuCategory>;
+		private var _menuCategories:ArrayCollection;
 		
 		public function ConfigModel( pvt:SingletonEnforcer )
 		{
 			_heroCarouselItems = new ArrayCollection();
-			_menuCategories = new Vector.<MenuCategory>();
+			_menuCategories = new ArrayCollection();
 			//loadTestData();
 			loadConfig();
 		}
@@ -61,7 +61,7 @@ package model
 			{
 				var mc:MenuCategory = new MenuCategory();
 				mc.processConfigXML(menuCategoryList[b]);
-				_menuCategories.push(mc);
+				_menuCategories.addItem(mc);
 			}
 		}
 		
@@ -95,6 +95,17 @@ package model
 		{
 			_heroCarouselItems = value;
 		}
+
+		public function get menuCategories():ArrayCollection
+		{
+			return _menuCategories;
+		}
+
+		public function set menuCategories(value:ArrayCollection):void
+		{
+			_menuCategories = value;
+		}
+
 	}
 }
 internal class SingletonEnforcer{}

@@ -1,15 +1,17 @@
 package vo
 {
+	import mx.collections.ArrayCollection;
+
 	public class MenuItem
 	{
 		public var name:String;
 		public var price:Number;
 		public var heroSource:String;
-		public var menuItemOptions:Vector.<MenuItemOption>;
+		public var menuItemOptions:ArrayCollection;
 		
 		public function MenuItem()
 		{
-			menuItemOptions = new Vector.<MenuItemOption>();
+			menuItemOptions = new ArrayCollection();
 		}
 		public function processConfigXML(xml:XML):void
 		{
@@ -21,7 +23,7 @@ package vo
 			{
 				var mio:MenuItemOption = new MenuItemOption();
 				mio.processConfigXML(menuItemOptionList[b]);
-				menuItemOptions.push(mio);
+				menuItemOptions.addItem(mio);
 			}
 		}
 	}

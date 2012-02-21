@@ -1,13 +1,15 @@
 package vo
 {
+	import mx.collections.ArrayCollection;
+
 	public class MenuCategory
 	{
 		public var name:String;
-		public var menuSubCategories:Vector.<MenuSubCategory>;
+		public var menuSubCategories:ArrayCollection;
 		
 		public function MenuCategory()
 		{
-			menuSubCategories = new Vector.<MenuSubCategory>();
+			menuSubCategories = new ArrayCollection();
 		}
 		public function processConfigXML(xml:XML):void
 		{
@@ -17,7 +19,7 @@ package vo
 			{
 				var msc:MenuSubCategory = new MenuSubCategory();
 				msc.processConfigXML(menuSubCategoryList[b]);
-				menuSubCategories.push(msc);
+				menuSubCategories.addItem(msc);
 			}
 		}
 	}

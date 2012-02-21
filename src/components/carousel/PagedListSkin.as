@@ -130,6 +130,8 @@ public class PagedListSkin extends ListSkin
             (unscaledHeight - axisPos) / 2;
         
         setElementPosition(pageIndicator, Math.floor(pageIndicatorX), Math.floor(pageIndicatorY));
+		
+		pageIndicator.visible = numElements > 1;
     }
     
     override public function styleChanged(styleProp:String):void
