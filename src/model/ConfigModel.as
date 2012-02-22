@@ -78,10 +78,29 @@ package model
 					if (menuItem.heroSource.length == 0) continue;
 					var ci:HCarouselItem = new HCarouselItem();
 					ci.imagePath = menuItem.heroSource;
+					ci.uuid = menuItem.uuid;
 					ac.addItem(ci);
 				}
 			}
 			return ac;
+		}
+		
+		public function getMenuItemByUuid(uuid:String):MenuItem
+		{
+			for (var a:int=0; a<_menuCategories.length; a++)
+			{
+				var menuSubCategories:ArrayCollection = MenuCategory(_menuCategories[a]).menuSubCategories;
+				for (var b:int=0; b<menuSubCategories.length; b++)
+				{
+					var menuItems:ArrayCollection = MenuSubCategory(menuSubCategories[b]).menuItems;
+					for (var c:int=0; c<menuItems.length; c++)
+					{
+						var menuItem:MenuItem = MenuItem(menuItems[c]);
+						if (menuItem.uuid == uuid) return menuItem;
+					}
+				}
+			}
+			return null;
 		}
 		
 		// Getters / Setters

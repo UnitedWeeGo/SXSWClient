@@ -3,11 +3,14 @@
 		xmlns:s="library://ns.adobe.com/flex/spark"
 		xmlns:carousel="components.carousel.*"
 		xmlns:categorySelector="components.categorySelector.*"
-		creationComplete="view1_creationCompleteHandler(event)" title="" xmlns:menuItemSelector="components.menuItemSelector.*">
+		creationComplete="view1_creationCompleteHandler(event)" title="" xmlns:menuItemSelector="components.menuItemSelector.*" xmlns:optionsModal="components.optionsModal.*">
 	
 	
 	<fx:Script>
 		<![CDATA[
+			import components.carousel.HCarouselItem;
+			import components.optionsModal.OptionsModalContainer;
+			
 			import events.MenuItemAdded;
 			
 			import model.ConfigModel;
@@ -16,8 +19,10 @@
 			import mx.events.FlexEvent;
 			
 			import spark.events.IndexChangeEvent;
+			import spark.events.PopUpEvent;
 			
 			import vo.MenuCategory;
+			import vo.MenuItem;
 			//768 x 449 hero image dims
 			
 			[Bindable]
@@ -44,12 +49,40 @@
 			private function handleMenuItemSelected(event:MenuItemAdded):void
 			{
 				trace(event.menuItem.name + ' was added');
+				if (event.menuItem.menuItemOptions.length > 0) // has options, show modal
+				{
+					trace('show optionsModal');
+					var alertWindow:OptionsModalContainer = new OptionsModalContainer();
+					alertWindow.addEventListener(PopUpEvent.CLOSE, onAlertClose, false, 0, true);
+					alertWindow.width = stage.width;
+					alertWindow.height = stage.height;
+					alertWindow.x = 0;
+					alertWindow.y = 0;
+					alertWindow.menuItem = event.menuItem;
+					alertWindow.open(this, true);
+				}
+			}
+			
+			private function onAlertClose(event:PopUpEvent):void {
+				trace(event.commit);
+				trace(event.data);
+			}
+			
+			private function addItemFromImageCarouselToOrder():void
+			{
+				trace('item in carousel added with index: ' + heros.currentIndex);
+				var ci:HCarouselItem = _heroCarouselItems[heros.currentIndex];
+				var mi:MenuItem = ConfigModel.getInstance().getMenuItemByUuid( ci.uuid );
+				var ev:MenuItemAdded = new MenuItemAdded(MenuItemAdded.MENU_ITEM_SELECTED, true);
+				ev.menuItem = mi;
+				handleMenuItemSelected(ev);
 			}
 			
 		]]>
 	</fx:Script>
 	
-	<carousel:HCarousel x="0" y="0" width="768" height="449" carouselItems="{_heroCarouselItems}" />
+	<carousel:HCarousel id="heros" x="0" y="0" width="768" height="449" carouselItems="{_heroCarouselItems}" />
+	<s:Button skinClass="skins.CarouselOrderButtonSkin" x="29" y="321" click="addItemFromImageCarouselToOrder()" />
 	<s:Image source="assets/miscUI/menuCarouselShadow.png" x="0" y="446" />
 	<s:Rect width="385" height="1" x="0" y="450">
 		<s:fill>
@@ -60,6 +93,5 @@
 	<menuItemSelector:MenuItemSelector id="menuItemSelector" x="386" y="451" />
 									   
 	<fx:Declarations>
-		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 </s:View>

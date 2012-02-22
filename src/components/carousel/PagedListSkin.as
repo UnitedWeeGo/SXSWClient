@@ -61,7 +61,7 @@ public class PagedListSkin extends ListSkin
         // page indicator
         pageIndicator = new Sprite();
         
-        // TODO (jasonsj): extend pageIndicator hit area to use the entire 
+        // TODO (): extend pageIndicator hit area to use the entire 
         // width/height of the List as a shortcut. Currently this only works
         // in the tiny area where the indicators are.
         //pageIndicator.addEventListener(MouseEvent.MOUSE_DOWN, pageIndicaterMouseHandler);

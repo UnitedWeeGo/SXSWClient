@@ -1,9 +1,12 @@
 package vo
 {
 	import mx.collections.ArrayCollection;
+	
+	import util.Uuid;
 
 	public class MenuItem
 	{
+		public var uuid:String;
 		public var name:String;
 		public var price:Number;
 		public var heroSource:String;
@@ -11,6 +14,7 @@ package vo
 		
 		public function MenuItem()
 		{
+			uuid = new Uuid().toString();
 			menuItemOptions = new ArrayCollection();
 		}
 		public function processConfigXML(xml:XML):void

@@ -1,14 +1,18 @@
 package vo
 {
 	import mx.collections.ArrayCollection;
+	
+	import util.Uuid;
 
 	public class MenuSubCategory
 	{
+		public var uuid:String;
 		public var name:String;
 		public var menuItems:ArrayCollection;
 		
 		public function MenuSubCategory()
 		{
+			uuid = new Uuid().toString();
 			menuItems = new ArrayCollection();
 		}
 		

@@ -50,7 +50,7 @@
 				
 				<s:List id="itemList" styleName="vCategoryListStyle"
 						itemRenderer="components.menuItemSelector.MenuItemListItemRenderer" requireSelection="false"
-						dataProvider="{_selectedMenuItems}" change="itemList_changeHandler(event)">
+						dataProvider="{_selectedMenuItems}">
 					<s:layout>
 						<s:TileLayout orientation="rows" requestedColumnCount="1"
 									  columnWidth="382"
@@ -99,18 +99,11 @@
 				}
 			}
 
-			
 			protected function back_clickHandler():void
 			{
 				subCategoryList.selectedIndex = -1;
 				itemList.selectedIndex = -1;
 				fromItems.play();
-			}
-			
-			protected function itemList_changeHandler(event:IndexChangeEvent):void
-			{
-				// TODO Auto-generated method stub
-				
 			}
 			
 		]]>

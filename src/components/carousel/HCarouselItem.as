@@ -3,6 +3,7 @@ package components.carousel
 	public class HCarouselItem
 	{
 		private var _imagePath:String;
+		private var _uuid:String;
 		
 		public function HCarouselItem()
 		{
@@ -17,6 +18,17 @@ package components.carousel
 		{
 			_imagePath = value;
 		}
+
+		public function get uuid():String
+		{
+			return _uuid;
+		}
+
+		public function set uuid(value:String):void
+		{
+			_uuid = value;
+		}
+
 
 	}
 }

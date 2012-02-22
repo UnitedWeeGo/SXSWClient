@@ -149,3 +149,77 @@ s|Label.subCatName
 	fontFamily: SapientSansRegular_CFF;
 	fontSize: 26;
 }
+
+s|Label.optionsModalItemName
+{
+	fontFamily: SapientSansBold_CFF;
+	fontSize: 40;
+	fontWeight: bold;
+	color: #FFFFFF;
+}
+s|Label.optionsModalOptions
+{
+	fontFamily: SapientSansBold_CFF;
+	fontSize: 24;
+	fontWeight: bold;
+	color: #d2da21;
+}
+
+s|SkinnableContainer.optionsModalContainer
+{
+	backgroundAlpha: .7;
+	backgroundColor: #000000;
+}
+
+s|BorderContainer.optionsContainer
+{
+	cornerRadius: 5;
+	backgroundColor: #212121;
+	borderAlpha: 0;
+}
+
+s|BorderContainer.optionsListContainer
+{
+	cornerRadius: 5;
+	backgroundColor: #000000;
+	borderAlpha: 0;
+}
+
+s|List.vOptionsListStyle
+{
+	horizontalScrollPolicy: off;
+	verticalScrollPolicy: auto;
+	contentBackgroundColor: #000000;
+}
+s|List.vOptionsListStyle s|VScrollBar
+{
+	skinClass: ClassReference("spark.skins.mobile.supportClasses.MobileSkin");
+}
+s|ItemRenderer.optionsListItemRenderer
+{
+	normalBackgroundColor: #171717;
+}
+
+s|Label.optionName
+{
+	fontFamily: SapientSansBold_CFF;
+	fontSize: 24;
+	fontWeight: bold;
+	color: #FFFFFF;
+}
+
+s|SpinnerList {
+	fontFamily: SapientSansBold;
+	fontSize: 24;
+	fontWeight: bold;
+	color: #171717;
+	
+}
+/**
+s|SpinnerListItemRenderer {
+	paddingTop : 5;
+	paddingBottom : 5;
+	paddingLeft : 5;
+	paddingRight : 5;
+}
+*/

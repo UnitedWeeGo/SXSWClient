@@ -21,6 +21,15 @@
 			{
 				_carouselItems = value;
 			}
+			
+			public function get currentIndex():int
+			{
+				var pos:Number = pagedList.scroller.viewport.horizontalScrollPosition;
+				var viewportSize:Number = pagedList.scroller.viewport.width;				
+				var selectedIndex:int = Math.round(pos / viewportSize);
+				
+				return selectedIndex;
+			}
 
 		]]>
 	</fx:Script>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:SkinnablePopUpContainer xmlns:fx="http://ns.adobe.com/mxml/2009" styleName="optionsModalContainer"
+						   xmlns:s="library://ns.adobe.com/flex/spark" width="768" height="1024">
+	<s:layout>
+		<s:BasicLayout/>
+	</s:layout>
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			
+			import vo.MenuItem;
+			import vo.MenuItemOption;
+			
+			private var _menuItem:MenuItem;
+			
+			[Bindable]
+			private var _addedOptions:ArrayCollection;
+			[Bindable]
+			private var _availableOptions:ArrayCollection;
+			[Bindable]
+			private var _sizeUpgradeAvailable:Boolean;
+			
+			private var _sizeUpgradeOption:MenuItemOption;
+			
+			public function set menuItem(value:MenuItem):void
+			{
+				_menuItem = value;
+				_addedOptions = new ArrayCollection();
+				_availableOptions = new ArrayCollection();
+				
+				for (var i:int=0; i<value.menuItemOptions.length; i++)
+				{
+					var mio:MenuItemOption = value.menuItemOptions[i] as MenuItemOption;
+					if (mio.isSizeUpgrade)
+					{
+						_sizeUpgradeAvailable = true;
+						_sizeUpgradeOption = mio;
+					}
+					else if (mio.defaultOption)
+					{
+						_addedOptions.addItem(mio);
+					}
+					else
+					{
+						_availableOptions.addItem(mio);
+					}
+				}
+			}
+			
+			protected function closeButton_clickHandler(event:MouseEvent):void
+			{
+				super.close(false);
+			}
+			
+			protected function addlOpts_clickHandler(event:MouseEvent):void
+			{
+				availOpts.visible = !availOpts.visible;
+			}
+		]]>
+	</fx:Script>
+	
+	<s:BorderContainer verticalCenter="0" horizontalCenter="0" width="550" height="794" styleName="optionsContainer">
+		<s:Image source="assets/optionsModal/closeButton.png" x="508" y="-41" click="closeButton_clickHandler(event)" />
+		<s:Label id="itemName" styleName="optionsModalItemName" x="24" y="24" creationComplete="{itemName.text = _menuItem.name.toUpperCase()}" />
+		<s:Label styleName="optionsModalOptions" x="24" y="79" text="Options" />
+		
+		<s:Group maskType="clip" x="21" y="120" width="508" height="349">
+			<s:mask>
+				<s:Graphic>
+					<s:Rect radiusX="5" radiusY="5" width="508" height="349">
+						<s:fill>
+							<s:SolidColor color="0xCCFFFF"/>
+						</s:fill>
+					</s:Rect>
+				</s:Graphic>
+			</s:mask>
+			
+			<s:List id="optionsList" styleName="vOptionsListStyle" width="508" height="349"
+					itemRenderer="components.optionsModal.OptionsListItemRenderer"
+					dataProvider="{_addedOptions}" >
+				<s:layout>
+					<s:VerticalLayout clipAndEnableScrolling="true" gap="1" />
+				</s:layout>
+			</s:List>
+		</s:Group>
+		<s:Image source="assets/optionsModal/addlOptsButton_white.png" x="21" y="480" click="addlOpts_clickHandler(event)" />
+		<s:SpinnerListContainer id="availOpts" x="21" y="480" width="507" height="220" visible="false">
+			<s:SpinnerList height="100%" width="100%" selectedIndex="1" labelField="name" dataProvider="{_availableOptions}" />
+		</s:SpinnerListContainer>
+		
+	</s:BorderContainer>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+</s:SkinnablePopUpContainer>
