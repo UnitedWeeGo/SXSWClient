@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" width="100%" height="75" styleName="orderSummaryListItemRenderer">
+	
+	<fx:Script>
+		<![CDATA[
+			import events.MenuItemEdit;
+			
+			import vo.MenuItem;
+			import vo.MenuItemOption;
+			override public function set data(value:Object):void
+			{
+				super.data = value;
+				if (!value) return;
+				var mi:MenuItem = MenuItem(value);				
+				catNameId.text = mi.name;
+				
+				editButton.visible = mi.menuItemOptions.length > 0;
+				setPriceLabel();
+			}
+			
+			protected function editItemClick(event:MouseEvent):void
+			{
+				var ev:MenuItemEdit = new MenuItemEdit(MenuItemEdit.MENU_ITEM_EDIT, true);
+				ev.menuItem = MenuItem(data);
+				dispatchEvent(ev);
+			}
+			protected function removeItemClick(event:MouseEvent):void
+			{
+				var ev:MenuItemEdit = new MenuItemEdit(MenuItemEdit.MENU_ITEM_REMOVE, true);
+				ev.menuItem = MenuItem(data);
+				dispatchEvent(ev);
+			}
+			private function setPriceLabel():void
+			{
+				var mi:MenuItem = MenuItem(super.data);
+				var priceStr:String = mi.totalPriceWithOptions().toFixed(2);
+				priceStr = '$' + priceStr;
+				price.text = priceStr;
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:states>
+		<s:State name="normal"/>
+		<s:State name="hovered"/>
+		<s:State name="selected" />
+	</s:states>
+		
+	<s:Rect width="100%" height="100%">
+		<s:fill>
+			<s:SolidColor color="{getStyle('normalBackgroundColor')}" />
+		</s:fill>
+	</s:Rect>
+	
+	<s:Label id="catNameId" styleName="orderSummaryListItemName" x="170" width="400" verticalCenter="-2" />
+	
+	<s:Button id="editButton" x="30" verticalCenter="0" skinClass="skins.EditItemButtonSkin" visible="true" click="editItemClick(event)" />
+	<s:Button visible="true" click="removeItemClick(event)" skinClass="skins.RemoveItemButtonSkin" verticalCenter="0" x="113"/>
+	<s:Label id="price" right="123" verticalCenter="0" styleName="orderSummaryListItemPrice" />
+	
+	<s:Button visible="true" click="removeItemClick(event)" skinClass="skins.ListMinusItemButtonSkin" verticalCenter="0" x="667"/>
+	<s:Button visible="true" click="removeItemClick(event)" skinClass="skins.ListPlusItemButtonSkin" verticalCenter="0" x="704"/>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+</s:ItemRenderer>

@@ -9,17 +9,29 @@
 	</s:Rect>
 	
 	<s:Label id="optionName" x="20" width="360" verticalCenter="0" styleName="optionName" />
+	<s:Image source="assets/optionsModal/removeOptionButton.png" right="20" verticalCenter="0" click="remove_clickHandler(event)" />
 	
 	<fx:Script>
 		<![CDATA[
+			import events.MenuItemOptionRemoved;
+			
 			import vo.MenuItemOption;
 			
 			override public function set data(value:Object):void
 			{
+				if (!value) return;
 				super.data = value;
 				var mi:MenuItemOption = MenuItemOption(value);				
 				optionName.text = mi.name;
 			}
+			
+			protected function remove_clickHandler(event:MouseEvent):void
+			{
+				var ev:MenuItemOptionRemoved = new MenuItemOptionRemoved(MenuItemOptionRemoved.ITEM_REMOVED, true);
+				ev.menuItemOption = data as MenuItemOption;
+				dispatchEvent(ev);
+			}
+			
 		]]>
 	</fx:Script>
 	

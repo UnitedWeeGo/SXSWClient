@@ -14,7 +14,7 @@ package model
 
 	public class ConfigModel
 	{
-		public static var instance:ConfigModel;
+		private static var instance:ConfigModel;
 		
 		private var _heroCarouselItems:ArrayCollection;
 		private var _menuCategories:ArrayCollection;

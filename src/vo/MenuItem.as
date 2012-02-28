@@ -11,7 +11,8 @@ package vo
 		public var price:Number;
 		public var heroSource:String;
 		public var menuItemOptions:ArrayCollection;
-		
+		public var hasBeenAddedToOrder:Boolean = false;
+				
 		public function MenuItem()
 		{
 			uuid = new Uuid().toString();
@@ -29,6 +30,18 @@ package vo
 				mio.processConfigXML(menuItemOptionList[b]);
 				menuItemOptions.addItem(mio);
 			}
+		}
+		public function totalPriceWithOptions():Number
+		{
+			var total:Number = 0;
+						
+			total += price;
+			for (var i:int=0; i<menuItemOptions.length; i++)
+			{
+				var mio:MenuItemOption = menuItemOptions[i] as MenuItemOption;
+				if (mio.addedOption) total+= mio.addlCost;
+			}
+			return total;
 		}
 	}
 }

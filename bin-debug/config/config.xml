@@ -33,15 +33,14 @@
 				<MenuItemOption default="true">
 					<name><![CDATA[Tomato]]></name>
 				</MenuItemOption>
-				<MenuItemOption default="true">
-					<name><![CDATA[Another]]></name>
-				</MenuItemOption>
 				<MenuItemOption addlCost="1.40">
 					<name><![CDATA[Ranch Dressing]]></name>
 				</MenuItemOption>
 				
 				<!-- The size options component is static (due to design), 6 and 12 inches buttons -->
-				<MenuItemOption sizeUpgradeOption="true" addlCost="4.00" />
+				<MenuItemOption sizeUpgradeOption="true" addlCost="4.00">
+					<name><![CDATA[Upgrade to 12 inch sandwich]]></name>
+				</MenuItemOption>
 				
 				<!-- Optional items, not active by default -->
 				<MenuItemOption addlCost="2.40">

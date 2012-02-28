@@ -14,6 +14,7 @@
 			import events.MenuItemAdded;
 			
 			import model.ConfigModel;
+			import model.OrderModel;
 			
 			import mx.collections.ArrayCollection;
 			import mx.events.FlexEvent;
@@ -61,11 +62,18 @@
 					alertWindow.menuItem = event.menuItem;
 					alertWindow.open(this, true);
 				}
+				else // just add it
+				{
+					var om:OrderModel = OrderModel.getInstance();
+					om.addItem(event.menuItem);
+				}
 			}
 			
 			private function onAlertClose(event:PopUpEvent):void {
 				trace(event.commit);
-				trace(event.data);
+				
+				
+//				trace(event.data);
 			}
 			
 			private function addItemFromImageCarouselToOrder():void
@@ -82,8 +90,10 @@
 	</fx:Script>
 	
 	<carousel:HCarousel id="heros" x="0" y="0" width="768" height="449" carouselItems="{_heroCarouselItems}" />
-	<s:Button skinClass="skins.CarouselOrderButtonSkin" x="29" y="321" click="addItemFromImageCarouselToOrder()" />
 	<s:Image source="assets/miscUI/menuCarouselShadow.png" x="0" y="446" />
+	
+	<s:Button skinClass="skins.CarouselOrderButtonSkin" x="29" y="321" click="addItemFromImageCarouselToOrder()" />
+	
 	<s:Rect width="385" height="1" x="0" y="450">
 		<s:fill>
 			<s:SolidColor color="#464646" />

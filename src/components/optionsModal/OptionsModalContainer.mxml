@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:SkinnablePopUpContainer xmlns:fx="http://ns.adobe.com/mxml/2009" styleName="optionsModalContainer"
-						   xmlns:s="library://ns.adobe.com/flex/spark" width="768" height="1024">
+						   xmlns:s="library://ns.adobe.com/flex/spark" width="768" height="1024" creationComplete="optionsModal_creationCompleteHandler(event)">
 	<s:layout>
 		<s:BasicLayout/>
 	</s:layout>
 	
 	<fx:Script>
 		<![CDATA[
+			import events.MenuItemOptionRemoved;
+			
+			import model.OrderModel;
+			
 			import mx.collections.ArrayCollection;
+			import mx.events.FlexEvent;
 			
 			import vo.MenuItem;
 			import vo.MenuItemOption;
@@ -23,6 +28,9 @@
 			
 			private var _sizeUpgradeOption:MenuItemOption;
 			
+			[Bindable]
+			private var _sizeUpgradeRequested:Boolean = false;
+			
 			public function set menuItem(value:MenuItem):void
 			{
 				_menuItem = value;
@@ -36,8 +44,9 @@
 					{
 						_sizeUpgradeAvailable = true;
 						_sizeUpgradeOption = mio;
+						if (mio.addedOption) _sizeUpgradeRequested = true;
 					}
-					else if (mio.defaultOption)
+					else if (mio.addedOption)
 					{
 						_addedOptions.addItem(mio);
 					}
@@ -46,6 +55,7 @@
 						_availableOptions.addItem(mio);
 					}
 				}
+				checkSpinnerAvailability();
 			}
 			
 			protected function closeButton_clickHandler(event:MouseEvent):void
@@ -53,10 +63,130 @@
 				super.close(false);
 			}
 			
+			[Bindable]
+			private var _spinnerAvailable:Boolean = false;
+			[Bindable]
+			private var _optionsOpen:Boolean = false;
+			private var _optionsRemaining:Boolean = false;
+			
 			protected function addlOpts_clickHandler(event:MouseEvent):void
 			{
-				availOpts.visible = !availOpts.visible;
+				//_availableOptions.length
+				if (_optionsOpen) 
+				{
+					_optionsOpen = false;
+					availOpts.visible = false;
+					availOptsAddBtn.visible = false;
+				}
+				else if(!_optionsOpen && _optionsRemaining)
+				{
+					_optionsOpen = true;
+					availOpts.visible = true;
+					availOptsAddBtn.visible = true;
+				}
 			}
+			
+			protected function availOptsAddBtn_clickHandler(event:MouseEvent):void
+			{
+				var mio:MenuItemOption = MenuItemOption(optionList.selectedItem);
+				_addedOptions.addItemAt(mio, 0);
+				_availableOptions.removeItemAt(_availableOptions.getItemIndex(mio));
+				checkSpinnerAvailability();
+			}
+			
+			protected function optionList_valueCommitHandler(event:FlexEvent):void
+			{
+				checkSpinnerAvailability();
+			}
+			
+			private function checkSpinnerAvailability():void
+			{
+				_optionsRemaining = _availableOptions.length > 0;
+				if (_optionsOpen && !_optionsRemaining) 
+				{
+					_optionsOpen = false;
+					availOpts.visible = false;
+					availOptsAddBtn.visible = false;
+				}
+			}
+			
+			protected function optionsModal_creationCompleteHandler(event:FlexEvent):void
+			{
+				addEventListener(MenuItemOptionRemoved.ITEM_REMOVED, handleOptionRemoved);
+			}
+			
+			private function handleOptionRemoved(event:MenuItemOptionRemoved):void
+			{
+				_availableOptions.addItemAt(event.menuItemOption, 0);
+				_addedOptions.removeItemAt(_addedOptions.getItemIndex(event.menuItemOption));
+			}
+			
+			protected function size_clickHandler(doUpgrade:Boolean):void
+			{
+				_sizeUpgradeRequested = doUpgrade;
+			}
+			private function getOrderedItem():MenuItem
+			{
+				var mi:MenuItem = new MenuItem();
+				
+				mi.name = _menuItem.name;
+				mi.price = _menuItem.price;
+				if (_menuItem.hasBeenAddedToOrder)
+				{
+					mi.uuid = _menuItem.uuid;
+				}
+				mi.hasBeenAddedToOrder = _menuItem.hasBeenAddedToOrder;
+				
+				for (var i:int=0; i<_addedOptions.length; i++)
+				{
+					var addedOption:MenuItemOption = _addedOptions.getItemAt(i) as MenuItemOption;
+					var newOption:MenuItemOption = new MenuItemOption();
+					newOption.addlCost = addedOption.addlCost;
+					newOption.addedOption = true;
+					newOption.name = addedOption.name;
+//					newOption.uuid = addedOption.uuid;
+					mi.menuItemOptions.addItem(newOption);
+				}
+				for (var j:int=0; j<_availableOptions.length; j++)
+				{
+					var availableOption:MenuItemOption = _availableOptions.getItemAt(j) as MenuItemOption;
+					var newOption2:MenuItemOption = new MenuItemOption();
+					newOption2.addlCost = availableOption.addlCost;
+					newOption2.addedOption = false;
+					newOption2.name = availableOption.name;
+//					newOption2.uuid = availableOption.uuid;
+					mi.menuItemOptions.addItem(newOption2);
+				}
+				if (_sizeUpgradeAvailable)
+				{
+					var sizeOption:MenuItemOption = new MenuItemOption();
+					sizeOption.addedOption = _sizeUpgradeRequested;
+					sizeOption.addlCost = _sizeUpgradeOption.addlCost;
+					sizeOption.isSizeUpgrade = true;
+					sizeOption.name = _sizeUpgradeOption.name;
+					
+					mi.menuItemOptions.addItem(sizeOption);
+				}
+				
+				return mi;
+			}
+			
+			protected function addItem_clickHandler(event:MouseEvent):void
+			{
+				var om:OrderModel = OrderModel.getInstance();
+				var item:MenuItem = getOrderedItem();
+				
+				if (item.hasBeenAddedToOrder)
+				{
+					om.updateItem(item);
+				}
+				else
+				{
+					om.addItem(item);
+				}
+				super.close(true);
+			}
+			
 		]]>
 	</fx:Script>
 	
@@ -85,9 +215,40 @@
 			</s:List>
 		</s:Group>
 		<s:Image source="assets/optionsModal/addlOptsButton_white.png" x="21" y="480" click="addlOpts_clickHandler(event)" />
-		<s:SpinnerListContainer id="availOpts" x="21" y="480" width="507" height="220" visible="false">
-			<s:SpinnerList height="100%" width="100%" selectedIndex="1" labelField="name" dataProvider="{_availableOptions}" />
+		
+		<s:SpinnerListContainer id="availOpts" x="21" y="551" width="507" height="220" visible="false">
+			<s:SpinnerList id="optionList" height="100%" width="100%" selectedIndex="1" labelField="name" dataProvider="{_availableOptions}" valueCommit="optionList_valueCommitHandler(event)" />
 		</s:SpinnerListContainer>
+		<s:Image id="availOptsAddBtn" x="482" y="644" visible="false"
+				 source="assets/miscUI/addItemPlusButton.png" click="availOptsAddBtn_clickHandler(event)"/>
+		
+		<!-- 	I'm inlining this becuase it really needs to be reworked.
+				It is a size selector, but the design only accomodates 2 options, regular and upgraded.
+				If this were to be used for other size options then it needs a redesign
+		-->
+		<s:VGroup x="21" y="551" visible="{_sizeUpgradeAvailable &amp;&amp; !_optionsOpen}" gap="15">
+			<s:Label text="Sizes" styleName="sizesLabel" paddingLeft="3" />
+			<s:HGroup gap="15">
+				<s:Group>
+					<s:Image source="assets/optionsModal/sizeSixInchButton.png" click="size_clickHandler(false)" />
+					<s:Rect width="245" height="90" radiusX="5" radiusY="5" visible="{!_sizeUpgradeRequested}" id="stroke1">
+						<s:stroke>
+							<s:SolidColorStroke color="#00aeef" weight="2" />
+						</s:stroke>
+					</s:Rect>
+				</s:Group>
+				<s:Group>
+					<s:Image source="assets/optionsModal/sizeTwelveInchButton.png" click="size_clickHandler(true)" />
+					<s:Rect width="245" height="90" radiusX="5" radiusY="5" visible="{_sizeUpgradeRequested}" id="stroke2">
+						<s:stroke>
+							<s:SolidColorStroke color="#00aeef" weight="2" />
+						</s:stroke>
+					</s:Rect>
+				</s:Group>
+			</s:HGroup>
+		</s:VGroup>
+		<!-- END inline size control -->
+		<s:Image y="714" horizontalCenter="-20" source="assets/optionsModal/confirmButton.png" visible="{!_optionsOpen}" click="addItem_clickHandler(event)"/>
 		
 	</s:BorderContainer>
 	

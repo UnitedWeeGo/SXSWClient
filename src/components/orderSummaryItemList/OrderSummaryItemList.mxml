@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:List xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		styleName="vOrderSummaryListStyle"
+		itemRenderer="components.orderSummaryItemList.OrderMenuItemListItemRenderer" requireSelection="false"
+		dataProvider="{_orderedItems}" creationComplete="list1_creationCompleteHandler(event)" change="list1_changeHandler(event)">
+	
+	
+	<s:layout>
+		<s:TileLayout orientation="rows" requestedColumnCount="1"
+					  columnWidth="{this.width}"
+					  verticalGap="1" horizontalGap="0" />
+	</s:layout>
+	
+	<fx:Script>
+		<![CDATA[
+			import model.ConfigModel;
+			import model.OrderModel;
+			
+			import mx.collections.ArrayCollection;
+			import mx.events.FlexEvent;
+			
+			import spark.events.IndexChangeEvent;
+			
+			[Bindable]
+			private var _orderedItems:ArrayCollection;
+			
+			protected function list1_creationCompleteHandler(event:FlexEvent):void
+			{
+				_orderedItems = OrderModel.getInstance().orderedItems;
+			}
+			
+			protected function list1_changeHandler(event:IndexChangeEvent):void
+			{
+				//trace('list item changed');
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+</s:List>

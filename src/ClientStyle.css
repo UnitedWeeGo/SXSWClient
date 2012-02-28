@@ -223,3 +223,47 @@ s|SpinnerListItemRenderer {
 	paddingRight : 5;
 }
 */
+
+s|Label.sizesLabel
+{
+	fontFamily: SapientSansBold_CFF;
+	fontSize: 24;
+	fontWeight: bold;
+	color: #00aeef;
+}
+
+s|List.vOrderSummaryListStyle
+{
+	horizontalScrollPolicy: off;
+	verticalScrollPolicy: auto;
+	contentBackgroundColor: #000000;
+}
+s|List.vOrderSummaryListStyle s|VScrollBar
+{
+	skinClass: ClassReference("spark.skins.mobile.supportClasses.MobileSkin");
+}
+s|ItemRenderer.orderSummaryListItemRenderer
+{
+	normalBackgroundColor: #171717;
+}
+s|Label.orderSummaryListItemName
+{
+	fontFamily: SapientSansBold_CFF;
+	fontSize: 24;
+	fontWeight: bold;
+	color: #FFFFFF;
+}
+s|Label.orderSummaryListItemPrice
+{
+	fontFamily: SapientSansBold_CFF;
+	fontSize: 24;
+	fontWeight: bold;
+	color: #FFFFFF;
+}
+s|Label.orderSummaryTotal
+{
+	fontFamily: SapientSansBold_CFF;
+	fontSize: 24;
+	fontWeight: bold;
+	color: #999999;
+}

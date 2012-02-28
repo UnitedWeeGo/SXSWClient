@@ -209,14 +209,47 @@ s|Label.optionName
 }
 
 s|SpinnerList {
-	textAlign: right;
-	fontSize: 13;
+	fontFamily: SapientSansBold;
+	fontSize: 24;
 	fontWeight: bold;
-	color: red;
+	color: #171717;
+	
 }
+/**
 s|SpinnerListItemRenderer {
-	paddingTop: 5;
-	paddingBottom: 5;
-	paddingRight: 5;
+	paddingTop : 5;
+	paddingBottom : 5;
+	paddingLeft : 5;
+	paddingRight : 5;
+}
+*/
+
+s|Label.sizesLabel
+{
+	fontFamily: SapientSansBold_CFF;
+	fontSize: 24;
+	fontWeight: bold;
+	color: #00aeef;
 }
 
+s|List.vOrderSummaryListStyle
+{
+	horizontalScrollPolicy: off;
+	verticalScrollPolicy: auto;
+	contentBackgroundColor: #000000;
+}
+s|List.vOrderSummaryListStyle s|VScrollBar
+{
+	skinClass: ClassReference("spark.skins.mobile.supportClasses.MobileSkin");
+}
+s|ItemRenderer.orderSummaryListItemRenderer
+{
+	normalBackgroundColor: #171717;
+}
+s|Label.orderSummaryListItemPrice
+{
+	fontFamily: SapientSansBold_CFF;
+	fontSize: 24;
+	fontWeight: bold;
+	color: #FFFFFF;
+}
