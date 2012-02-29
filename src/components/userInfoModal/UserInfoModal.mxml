@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:SkinnablePopUpContainer xmlns:fx="http://ns.adobe.com/mxml/2009" styleName="optionsModalContainer"
+						   xmlns:s="library://ns.adobe.com/flex/spark" width="768" height="1024" creationComplete="skinnablepopupcontainer1_creationCompleteHandler(event)" close="skinnablepopupcontainer1_closeHandler(event)" resizeForSoftKeyboard="true" xmlns:mx="library://ns.adobe.com/flex/mx">
+	
+	<fx:Script>
+		<![CDATA[
+			import events.ServiceEvent;
+			
+			import model.OrderModel;
+			
+			import mx.events.FlexEvent;
+			import mx.events.ValidationResultEvent;
+			import mx.validators.PhoneNumberValidator;
+			
+			import service.OrderService;
+			
+			import spark.events.PopUpEvent;
+			
+			import vo.Customer;
+			
+			private var _customer:Customer;
+			private var _orderService:OrderService;
+			
+			protected function closeButton_clickHandler(event:MouseEvent):void
+			{
+				super.close(false);
+			}
+			
+			protected function skinnablepopupcontainer1_creationCompleteHandler(event:FlexEvent):void
+			{
+				_customer = new Customer();
+			}
+			private function updateButtonValues():void
+			{
+				//clearBtn.visible = serverName.text.length > 0;
+//				contBtn.enabled = serverName.text.length > 0;
+			}
+			
+			protected function field_enterHandler(event:FlexEvent):void
+			{
+				
+			}
+			
+			protected function submit_clickHandler(event:MouseEvent):void
+			{
+				validateFields();
+				
+			}
+			
+			private function validateFields():void
+			{
+				phoneVal.validate(userPhone.text);
+			}
+			
+			protected function phoneVal_validHandler(event:ValidationResultEvent):void
+			{
+				_customer.name = userName.text;
+				_customer.title = userTitle.text;
+				_customer.email = userEmail.text;
+				_customer.phoneNumber = userPhone.text;
+				
+				OrderModel.getInstance().currentUserInfo = _customer;
+				_orderService = OrderService.getInstance();
+				_orderService.addEventListener(ServiceEvent.ORDER_SUCCESS, handleOrderSuccess);
+				_orderService.addEventListener(ServiceEvent.ORDER_FAIL, handleOrderFail);
+				_orderService.sendOrder();
+				
+				userInfoEntry.mouseEnabled = false;
+				userInfoEntry.mouseChildren = false;
+			}
+			
+			private function handleOrderSuccess(event:ServiceEvent):void
+			{
+//				trace('order submit success');
+				super.close(true);
+			}
+			private function handleOrderFail(event:ServiceEvent):void
+			{
+//				trace('order submit fail');
+				userInfoEntry.visible = false;
+				errorMessage.text = 'Network Error, Try Again.';
+				errorModal.visible = true;
+			}
+			
+			protected function phoneVal_invalidHandler(event:ValidationResultEvent):void
+			{
+//				trace(event.message);
+				userInfoEntry.visible = false;
+				errorMessage.text = 'Phone Number is Invalid.';
+				errorModal.visible = true;
+			}
+			
+			protected function skinnablepopupcontainer1_closeHandler(event:PopUpEvent):void
+			{
+				if (!_orderService) return;
+				_orderService.removeEventListener(ServiceEvent.ORDER_SUCCESS, handleOrderSuccess);
+				_orderService.removeEventListener(ServiceEvent.ORDER_FAIL, handleOrderFail);
+			}
+			
+			protected function closeErrorButton_clickHandler(event:Event):void
+			{
+				userInfoEntry.mouseEnabled = true;
+				userInfoEntry.mouseChildren = true;
+				errorModal.visible = false;
+				userInfoEntry.visible = true;
+			}
+			
+		]]>
+	</fx:Script>
+	
+	
+	<s:BorderContainer id="userInfoEntry" verticalCenter="0" horizontalCenter="0" width="550" height="518" styleName="itemAddedModal">
+		
+		<s:Image source="assets/optionsModal/closeButton.png" x="508" y="-41" click="closeButton_clickHandler(event)" />
+		
+		<s:Label styleName="userInfoModalHeader" x="22" y="25" text="YOUR DETAILS" />
+		<s:Image x="22" y="91" source="assets/userInfoModal/inputFields.png" />
+		<s:Button x="196" y="445" skinClass="skins.UserInfoModalSubmitOrderButtonSkin" click="submit_clickHandler(event)"/>
+		
+		<s:TextInput id="userName" x="24" y="121" width="235" change="updateButtonValues()" needsSoftKeyboard="true" softKeyboardType="contact" autoCapitalize="word"
+					 enter="field_enterHandler(event)" styleName="userInfoModalEntryStyle"/>
+		<s:TextInput id="userTitle" x="290" y="121" width="235" change="updateButtonValues()" needsSoftKeyboard="true" softKeyboardType="contact" autoCapitalize="word"
+					 enter="field_enterHandler(event)" styleName="userInfoModalEntryStyle"/>
+		<s:TextInput id="userEmail" x="24" y="236" width="501" change="updateButtonValues()" needsSoftKeyboard="true" softKeyboardType="email"
+					 enter="field_enterHandler(event)" styleName="userInfoModalEntryStyle"/>
+		<s:TextInput id="userPhone" x="24" y="351" width="501" change="updateButtonValues()" needsSoftKeyboard="true" softKeyboardType="number" restrict="0-9 \-"
+					 enter="field_enterHandler(event)" styleName="userInfoModalEntryStyle"/>
+		
+	</s:BorderContainer>
+	
+	<s:BorderContainer id="errorModal" verticalCenter="0" horizontalCenter="0" width="550" height="190" styleName="itemAddedModal" visible="false">
+		<s:Label id="errorMessage" styleName="itemAddedMessage" x="46" y="61" />
+		<s:Image source="assets/optionsModal/closeButton.png" x="508" y="-41" click="closeErrorButton_clickHandler(event)" />
+	</s:BorderContainer>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<mx:PhoneNumberValidator id="phoneVal" allowedFormatChars="-" valid="phoneVal_validHandler(event)" invalid="phoneVal_invalidHandler(event)" />
+	</fx:Declarations>
+</s:SkinnablePopUpContainer>
+
+

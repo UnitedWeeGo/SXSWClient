@@ -246,10 +246,58 @@ s|ItemRenderer.orderSummaryListItemRenderer
 {
 	normalBackgroundColor: #171717;
 }
+s|Label.orderSummaryListItemName
+{
+	fontFamily: SapientSansBold_CFF;
+	fontSize: 24;
+	fontWeight: bold;
+	color: #FFFFFF;
+}
 s|Label.orderSummaryListItemPrice
 {
 	fontFamily: SapientSansBold_CFF;
 	fontSize: 24;
 	fontWeight: bold;
 	color: #FFFFFF;
+}
+s|Label.orderSummaryTotal
+{
+	fontFamily: SapientSansBold_CFF;
+	fontSize: 24;
+	fontWeight: bold;
+	color: #999999;
+}
+s|BorderContainer.itemAddedModal
+{
+	cornerRadius: 5;
+	backgroundColor: #212121;
+	borderAlpha: 0;
+}
+s|Label.itemAddedMessage
+{
+	fontFamily: SapientSansBold_CFF;
+	fontSize: 40;
+	fontWeight: bold;
+	color: #FFFFFF;
+}
+
+s|Label.userInfoModalHeader
+{
+	fontFamily: SapientSansBold_CFF;
+	fontSize: 40;
+	fontWeight: bold;
+	color: #FFFFFF;
+}
+
+s|TextInput.userInfoModalEntryStyle
+{
+	textAlign: left;
+	contentBackgroundAlpha: 0;
+	borderVisible: false;
+	focusAlpha: 0;
+	fontFamily: SapientSansRegular;
+	fontWeight:normal;
+	fontSize: 35;
+	color: #FFFFFF;
+	paddingTop: 10;
 }

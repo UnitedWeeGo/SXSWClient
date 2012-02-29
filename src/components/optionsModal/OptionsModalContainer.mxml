@@ -131,6 +131,7 @@
 				
 				mi.name = _menuItem.name;
 				mi.price = _menuItem.price;
+				mi.categoryFriendlyName = _menuItem.categoryFriendlyName;
 				if (_menuItem.hasBeenAddedToOrder)
 				{
 					mi.uuid = _menuItem.uuid;

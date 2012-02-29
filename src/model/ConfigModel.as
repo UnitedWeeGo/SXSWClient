@@ -18,6 +18,9 @@ package model
 		
 		private var _heroCarouselItems:ArrayCollection;
 		private var _menuCategories:ArrayCollection;
+		private var _isFreePromotion:Boolean;
+		private var _instanceId:String;
+		private var _endpoint:String;
 		
 		public function ConfigModel( pvt:SingletonEnforcer )
 		{
@@ -48,6 +51,11 @@ package model
 		private function processConfigXML(e:Event):void
 		{
 			var cXML:XML = new XML(e.target.data);
+			
+			_isFreePromotion = cXML.@isFreePromotion == "true";
+			_instanceId = cXML.@instanceId;
+			_endpoint = cXML.@endpoint;
+			
 			var homeCarouselImageList:XMLList = cXML.homeCarouselImages.image;
 			for (var a:int=0; a<homeCarouselImageList.length(); a++)
 			{
@@ -69,6 +77,14 @@ package model
 		{
 			var ac:ArrayCollection = new ArrayCollection();
 			var menuCategory:MenuCategory = _menuCategories[index];
+			if (menuCategory.heroSource.length > 0)
+			{
+				var ci:HCarouselItem = new HCarouselItem();
+				ci.isMenuItem = false;
+				ci.imagePath = menuCategory.heroSource;
+				ci.uuid = menuCategory.uuid;
+				ac.addItem(ci);
+			}
 			for (var a:int=0; a<menuCategory.menuSubCategories.length; a++)
 			{
 				var menuSubCategory:MenuSubCategory = menuCategory.menuSubCategories[a];
@@ -76,10 +92,11 @@ package model
 				{
 					var menuItem:MenuItem = menuSubCategory.menuItems[b];
 					if (menuItem.heroSource.length == 0) continue;
-					var ci:HCarouselItem = new HCarouselItem();
-					ci.imagePath = menuItem.heroSource;
-					ci.uuid = menuItem.uuid;
-					ac.addItem(ci);
+					var ci2:HCarouselItem = new HCarouselItem();
+					ci2.isMenuItem = true;
+					ci2.imagePath = menuItem.heroSource;
+					ci2.uuid = menuItem.uuid;
+					ac.addItem(ci2);
 				}
 			}
 			return ac;
@@ -124,6 +141,22 @@ package model
 		{
 			_menuCategories = value;
 		}
+
+		public function get isFreePromotion():Boolean
+		{
+			return _isFreePromotion;
+		}
+
+		public function get instanceId():String
+		{
+			return _instanceId;
+		}
+
+		public function get endpoint():String
+		{
+			return _endpoint;
+		}
+
 
 	}
 }

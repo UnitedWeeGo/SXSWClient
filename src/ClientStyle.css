@@ -215,14 +215,6 @@ s|SpinnerList {
 	color: #171717;
 	
 }
-/**
-s|SpinnerListItemRenderer {
-	paddingTop : 5;
-	paddingBottom : 5;
-	paddingLeft : 5;
-	paddingRight : 5;
-}
-*/
 
 s|Label.sizesLabel
 {
@@ -266,4 +258,38 @@ s|Label.orderSummaryTotal
 	fontSize: 24;
 	fontWeight: bold;
 	color: #999999;
+}
+s|BorderContainer.itemAddedModal
+{
+	cornerRadius: 5;
+	backgroundColor: #212121;
+	borderAlpha: 0;
+}
+s|Label.itemAddedMessage
+{
+	fontFamily: SapientSansBold_CFF;
+	fontSize: 40;
+	fontWeight: bold;
+	color: #FFFFFF;
+}
+
+s|Label.userInfoModalHeader
+{
+	fontFamily: SapientSansBold_CFF;
+	fontSize: 40;
+	fontWeight: bold;
+	color: #FFFFFF;
+}
+
+s|TextInput.userInfoModalEntryStyle
+{
+	textAlign: left;
+	contentBackgroundAlpha: 0;
+	borderVisible: false;
+	focusAlpha: 0;
+	fontFamily: SapientSansRegular;
+	fontWeight:normal;
+	fontSize: 35;
+	color: #FFFFFF;
+	paddingTop: 10;
 }

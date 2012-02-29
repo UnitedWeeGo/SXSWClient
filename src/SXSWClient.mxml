@@ -9,7 +9,13 @@
 	
 	<fx:Script>
 		<![CDATA[
+			import components.generalModals.SuccessModal;
+			
+			import events.OrderEvent;
+			
 			import model.ConfigModel;
+			import model.OrderModel;
+			
 			import mx.events.FlexEvent;
 			
 			protected function tabbedviewnavigatorapplication1_preinitializeHandler(event:FlexEvent):void
@@ -19,14 +25,31 @@
 			
 			protected function tabbedviewnavigatorapplication1_creationCompleteHandler(event:FlexEvent):void
 			{
-				
+				addEventListener(OrderEvent.ORDER_CANCELLED, handleOrderCancelled);
+				addEventListener(OrderEvent.ORDER_COMPLETE, handleOrderComplete);
 			}
-			
+			private function handleOrderCancelled(event:OrderEvent):void
+			{
+				tabbedNavigator.selectedIndex = 0;
+				OrderModel.getInstance().clearOrder();
+			}
+			private function handleOrderComplete(event:OrderEvent):void
+			{
+				tabbedNavigator.selectedIndex = 0;
+				OrderModel.getInstance().clearOrder();
+				
+				var alertWindow:SuccessModal = new SuccessModal();
+				alertWindow.width = stage.width;
+				alertWindow.height = stage.height;
+				alertWindow.x = 0;
+				alertWindow.y = 0;
+				alertWindow.open(this, true);
+			}
 		]]>
 	</fx:Script>
-	<s:ViewNavigator label="MENU" width="100%" height="100%" firstView="views.MENUView"/>
-	<s:ViewNavigator label="HOME" width="100%" height="100%" firstView="views.HOMEView"/>
 	
+	<s:ViewNavigator label="HOME" width="100%" height="100%" firstView="views.HOMEView"/>
+	<s:ViewNavigator label="MENU" width="100%" height="100%" firstView="views.MENUView"/>
 	<s:ViewNavigator label="CURRENT ORDER" width="100%" height="100%" firstView="views.CURRENTORDERView"/>
 	
 	<fx:Declarations>

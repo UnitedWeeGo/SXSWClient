@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<config>
-
+<config isFreePromotion="true" instanceId="26" endpoint="http://local.orderservice.com/placeorder.php">
+<!-- <config isFreePromotion="true" instanceId="26" endpoint="http://clients.velloff.com/SapientApp/public/placeorder.php"> -->
 	<homeCarouselImages>
-		<image source="assets/homeCarouselImages/ProductHeroFPO.jpg" />
-		<image source="assets/homeCarouselImages/ProductHeroFPO_sm.jpg" />
-		<image source="assets/homeCarouselImages/ProductHeroFPO.jpg" />
-		<image source="assets/homeCarouselImages/ProductHeroFPO_sm.jpg" />
+		<image source="assets/homeCarouselImages/home_1.jpg" />
 		<image source="assets/homeCarouselImages/ProductHeroFPO.jpg" />
 	</homeCarouselImages>
 
@@ -93,6 +90,11 @@
 				<MenuItemOption default="true">
 					<name><![CDATA[Vinegar]]></name>
 				</MenuItemOption>
+				
+				<!-- The size options component is static (due to design), 6 and 12 inches buttons -->
+				<MenuItemOption sizeUpgradeOption="true" addlCost="4.00">
+					<name><![CDATA[Upgrade to 12 inch sandwich]]></name>
+				</MenuItemOption>
 			</MenuItem>
 			
 		</MenuSubCategory>
@@ -118,6 +120,11 @@
 					<name><![CDATA[Tomato]]></name>
 				</MenuItemOption>
 				
+				<!-- The size options component is static (due to design), 6 and 12 inches buttons -->
+				<MenuItemOption sizeUpgradeOption="true" addlCost="4.00">
+					<name><![CDATA[Upgrade to 12 inch sandwich]]></name>
+				</MenuItemOption>
+				
 				<!-- Optional items, not active by default -->
 				<MenuItemOption>
 					<name><![CDATA[Mushroom]]></name>
@@ -136,7 +143,7 @@
 		
 	</MenuCategory>
 	
-	<MenuCategory>
+	<MenuCategory heroSource="assets/menuItemCarouselImages/chips.jpg">
 		<name><![CDATA[Sides]]></name>
 		
 		<MenuSubCategory>
@@ -157,13 +164,13 @@
 		</MenuSubCategory>
 	</MenuCategory>
 	
-	<MenuCategory>
+	<MenuCategory heroSource="assets/menuItemCarouselImages/drinks.jpg">
 		<name><![CDATA[Drinks]]></name>
 		
 		<MenuSubCategory>
 			<name><![CDATA[Specialty]]></name>
 			
-			<MenuItem itemPrice="0" heroSource="assets/menuItemCarouselImages/ProductHeroFPO.jpg">
+			<MenuItem itemPrice="0">
 				<name><![CDATA[Dublin Dr. Pepper]]></name>
 			</MenuItem>
 			<MenuItem itemPrice="0" heroSource="assets/menuItemCarouselImages/ProductHeroFPO.jpg">
@@ -176,7 +183,7 @@
 		<MenuSubCategory>
 			<name><![CDATA[Other]]></name>
 			
-			<MenuItem itemPrice="0" heroSource="assets/menuItemCarouselImages/ProductHeroFPO.jpg">
+			<MenuItem itemPrice="0">
 				<name><![CDATA[Water]]></name>
 			</MenuItem>
 			<MenuItem itemPrice="0" heroSource="assets/menuItemCarouselImages/ProductHeroFPO.jpg">
@@ -187,37 +194,4 @@
 			</MenuItem>
 		</MenuSubCategory>
 	</MenuCategory>
-	
-	<!-- SCROLL TEST -->
-	<MenuCategory>
-		<name><![CDATA[Drinks]]></name>
-		
-		<MenuSubCategory>
-			<name><![CDATA[Specialty]]></name>
-			
-			<MenuItem itemPrice="0" heroSource="assets/menuItemCarouselImages/ProductHeroFPO.jpg">
-				<name><![CDATA[Dublin Dr. Pepper]]></name>
-			</MenuItem>
-			<MenuItem itemPrice="0" heroSource="assets/menuItemCarouselImages/ProductHeroFPO.jpg">
-				<name><![CDATA[Mexican Coke]]></name>
-			</MenuItem>
-			<MenuItem itemPrice="0">
-				<name><![CDATA[Sweet Leaf Tea]]></name>
-			</MenuItem>
-		</MenuSubCategory>
-		<MenuSubCategory>
-			<name><![CDATA[Other]]></name>
-			
-			<MenuItem itemPrice="0" heroSource="assets/menuItemCarouselImages/ProductHeroFPO.jpg">
-				<name><![CDATA[Water]]></name>
-			</MenuItem>
-			<MenuItem itemPrice="0" heroSource="assets/menuItemCarouselImages/ProductHeroFPO.jpg">
-				<name><![CDATA[Lemonade]]></name>
-			</MenuItem>
-			<MenuItem itemPrice="0">
-				<name><![CDATA[Diet Coke]]></name>
-			</MenuItem>
-		</MenuSubCategory>
-	</MenuCategory>
-	
 </config>

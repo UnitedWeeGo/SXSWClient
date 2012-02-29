@@ -3,6 +3,7 @@ package model
 	import mx.collections.ArrayCollection;
 	
 	import vo.MenuItem;
+	import vo.Customer;
 
 	public class OrderModel
 	{
@@ -14,6 +15,7 @@ package model
 		public var instanceId:String;
 		
 		private var _orderedItems:ArrayCollection;
+		private var _currentUserInfo:Customer;
 		
 		public function OrderModel( pvt:SingletonEnforcer )
 		{
@@ -28,13 +30,13 @@ package model
 		
 		public function addItem(value:MenuItem):void
 		{
-			trace('item added');
+//			trace('item added');
 			value.hasBeenAddedToOrder = true;
 			orderedItems.addItem(value);
 		}
 		public function updateItem(value:MenuItem):void
 		{
-			trace('item previously added, update');
+//			trace('item previously added, update');
 			var l:int = _orderedItems.length;
 			for (var i:int=0; i<l; i++)
 			{
@@ -64,6 +66,7 @@ package model
 		public function clearOrder():void
 		{
 			orderedItems.removeAll();
+			_currentUserInfo = null;
 		}
 
 		[Bindable]
@@ -75,6 +78,15 @@ package model
 		public function set orderedItems(value:ArrayCollection):void
 		{
 			_orderedItems = value;
+		}
+
+		public function set currentUserInfo(value:Customer):void
+		{
+			_currentUserInfo = value;
+		}
+		public function get currentUserInfo():Customer
+		{
+			return _currentUserInfo;
 		}
 
 	}

@@ -5,9 +5,12 @@
 	<fx:Script>
 		<![CDATA[
 			import components.optionsModal.OptionsModalContainer;
+			import components.userInfoModal.UserInfoModal;
 			
 			import events.MenuItemEdit;
+			import events.OrderEvent;
 			
+			import model.ConfigModel;
 			import model.OrderModel;
 			
 			import mx.collections.ArrayCollection;
@@ -27,13 +30,14 @@
 			{
 				addEventListener(MenuItemEdit.MENU_ITEM_EDIT, handleMenuItemEdit);
 				addEventListener(MenuItemEdit.MENU_ITEM_REMOVE, handleMenuItemRemove);
+				addEventListener(MenuItemEdit.MENU_ITEM_DUPE, handleMenuItemDupe);
 			}
 			
 			private function handleMenuItemEdit(event:MenuItemEdit):void
 			{
 				if (event.menuItem.menuItemOptions.length > 0) // has options, show modal
 				{
-					trace('show optionsModal');
+//					trace('show optionsModal');
 					var alertWindow:OptionsModalContainer = new OptionsModalContainer();
 					alertWindow.addEventListener(PopUpEvent.CLOSE, onAlertClose, false, 0, true);
 					alertWindow.width = stage.width;
@@ -50,19 +54,35 @@
 				OrderModel.getInstance().removeItem(event.menuItem);
 			}
 			
+			private function handleMenuItemDupe(event:MenuItemEdit):void
+			{
+				var dupeItem:MenuItem = event.menuItem.clone();
+				OrderModel.getInstance().addItem(dupeItem);
+			}
+			
 			private function onAlertClose(event:PopUpEvent):void {
-				trace(event.commit);
+//				trace(event.commit);
+			}
+			
+			private function onOrderSuccessModelClose(event:PopUpEvent):void {
+				if (event.commit)
+				{
+					var ev:OrderEvent = new OrderEvent(OrderEvent.ORDER_COMPLETE, true);
+					dispatchEvent(ev);
+				}
 			}
 			
 			protected function ordersummaryitemlist1_updateCompleteHandler(event:FlexEvent):void
 			{
 				submitButton.alpha = cancelButton.alpha = OrderModel.getInstance().orderedItems.length > 0 ? 1 : .2;
+				submitButton.enabled = cancelButton.enabled = OrderModel.getInstance().orderedItems.length > 0;
 				updateTotal();
 			}
 			
 			protected function ordersummaryitemlist1_creationCompleteHandler(event:FlexEvent):void
 			{
 				submitButton.alpha = cancelButton.alpha = OrderModel.getInstance().orderedItems.length > 0 ? 1 : .2;
+				submitButton.enabled = cancelButton.enabled = OrderModel.getInstance().orderedItems.length > 0;
 				updateTotal();
 			}
 			
@@ -77,6 +97,26 @@
 				}
 				var totStr:String = total.toFixed(2);
 				orderTotal.text = 'Total: $' + totStr;
+				
+				freeImage.visible = ConfigModel.getInstance().isFreePromotion;
+			}
+			
+			protected function cancelButton_clickHandler(event:MouseEvent):void
+			{
+				var ev:OrderEvent = new OrderEvent(OrderEvent.ORDER_CANCELLED, true);
+				dispatchEvent(ev);
+				
+			}
+			
+			protected function submitButton_clickHandler(event:MouseEvent):void
+			{
+				var alertWindow:UserInfoModal = new UserInfoModal();
+				alertWindow.addEventListener(PopUpEvent.CLOSE, onOrderSuccessModelClose, false, 0, true);
+				alertWindow.width = stage.width;
+				alertWindow.height = stage.height;
+				alertWindow.x = 0;
+				alertWindow.y = 0;
+				alertWindow.open(this, true);
 			}
 			
 		]]>
@@ -92,10 +132,11 @@
 	
 	<orderSummaryItemList:OrderSummaryItemList y="282" width="768" height="380" change="ordersummaryitemlist_changeHandler(event)" updateComplete="ordersummaryitemlist1_updateCompleteHandler(event)" creationComplete="ordersummaryitemlist1_creationCompleteHandler(event)" />
 	
-	<s:Button id="submitButton" x="489" y="743" skinClass="skins.SubmitOrderButtonSkin" />
-	<s:Button id="cancelButton" x="488" y="812" skinClass="skins.CancelOrderButtonSkin" />
+	<s:Button id="submitButton" x="489" y="743" skinClass="skins.SubmitOrderButtonSkin" click="submitButton_clickHandler(event)" />
+	<s:Button id="cancelButton" x="488" y="812" skinClass="skins.CancelOrderButtonSkin" click="cancelButton_clickHandler(event)" />
 	
 	<s:Label id="orderTotal" styleName="orderSummaryTotal" x="30" y="776" />
+	<s:Image id="freeImage" source="assets/orderSummary/freeImage.png" x="30" y="807" />
 	
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->

@@ -8,6 +8,7 @@ package vo
 	{
 		public var uuid:String;
 		public var name:String;
+		public var categoryFriendlyName:String;
 		public var price:Number;
 		public var heroSource:String;
 		public var menuItemOptions:ArrayCollection;
@@ -43,5 +44,45 @@ package vo
 			}
 			return total;
 		}
+		public function clone():MenuItem
+		{
+			var mi:MenuItem = new MenuItem();
+//			mi.uuid = uuid;
+			mi.name = name;
+			mi.price = price;
+			mi.heroSource = heroSource;
+			mi.hasBeenAddedToOrder = hasBeenAddedToOrder;
+			mi.categoryFriendlyName = categoryFriendlyName;
+			for (var i:int=0; i<menuItemOptions.length; i++)
+			{
+				var newMio:MenuItemOption = MenuItemOption(menuItemOptions.getItemAt(i)).clone();
+				mi.menuItemOptions.addItem(newMio);
+			}
+			return mi;
+		}
+		
+		public function getXML():XML
+		{
+			var xml:XML = 
+				<MenuItem itemPrice={price}>
+					<categoryFriendlyName>{cdata(categoryFriendlyName)}</categoryFriendlyName>
+					<name>{cdata(name)}</name>
+				</MenuItem>;
+			for (var i:int=0; i<menuItemOptions.length; i++)
+			{
+				var mio:MenuItemOption = menuItemOptions.getItemAt(i) as MenuItemOption;
+				if (mio.addedOption)
+				{
+					var node:XML = mio.getXML();
+					xml.appendChild(node);
+				}
+			}
+			return xml;
+		}
+		private function cdata(data:String):XML 
+		{
+			return new XML("<![CDATA[" + data + "]]>");
+		}
+		
 	}
 }

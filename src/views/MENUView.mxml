@@ -3,12 +3,17 @@
 		xmlns:s="library://ns.adobe.com/flex/spark"
 		xmlns:carousel="components.carousel.*"
 		xmlns:categorySelector="components.categorySelector.*"
-		creationComplete="view1_creationCompleteHandler(event)" title="" xmlns:menuItemSelector="components.menuItemSelector.*" xmlns:optionsModal="components.optionsModal.*">
+		creationComplete="view1_creationCompleteHandler(event)" 
+		removedFromStage="view1_removedFromStageHandler(event)"
+		title="" xmlns:menuItemSelector="components.menuItemSelector.*" 
+		xmlns:optionsModal="components.optionsModal.*">
 	
 	
 	<fx:Script>
 		<![CDATA[
+			import components.carousel.HCarouselIndexChanging;
 			import components.carousel.HCarouselItem;
+			import components.itemAddedModal.ItemAddedModal;
 			import components.optionsModal.OptionsModalContainer;
 			
 			import events.MenuItemAdded;
@@ -36,7 +41,7 @@
 				_heroCarouselItems = ConfigModel.getInstance().getCarouselItemsPerMenuCategoryWithIndex(0);
 				var selectedCat:MenuCategory = ConfigModel.getInstance().menuCategories.getItemAt(0) as MenuCategory;
 				menuItemSelector.menuSubCategories = selectedCat.menuSubCategories;
-				
+				addEventListener(HCarouselIndexChanging.INDEX_CHANGING, handleCarouselIndexChanging);
 			}
 			
 			protected function categorylist1_changeHandler(event:IndexChangeEvent):void
@@ -66,24 +71,47 @@
 				{
 					var om:OrderModel = OrderModel.getInstance();
 					om.addItem(event.menuItem);
+					showItemAddedModal();
 				}
 			}
 			
 			private function onAlertClose(event:PopUpEvent):void {
-				trace(event.commit);
-				
+//				trace(event.commit);
+				if (event.commit) showItemAddedModal();
 				
 //				trace(event.data);
 			}
 			
+			private function showItemAddedModal():void
+			{
+				var alertWindow:ItemAddedModal = new ItemAddedModal();
+				alertWindow.width = stage.width;
+				alertWindow.height = stage.height;
+				alertWindow.x = 0;
+				alertWindow.y = 0;
+				alertWindow.open(this, true);
+			}
+			
 			private function addItemFromImageCarouselToOrder():void
 			{
-				trace('item in carousel added with index: ' + heros.currentIndex);
+//				trace('item in carousel added with index: ' + heros.currentIndex);
 				var ci:HCarouselItem = _heroCarouselItems[heros.currentIndex];
 				var mi:MenuItem = ConfigModel.getInstance().getMenuItemByUuid( ci.uuid );
 				var ev:MenuItemAdded = new MenuItemAdded(MenuItemAdded.MENU_ITEM_SELECTED, true);
 				ev.menuItem = mi;
 				handleMenuItemSelected(ev);
+			}
+			
+			protected function view1_removedFromStageHandler(event:Event):void
+			{
+				removeEventListener(MenuItemAdded.MENU_ITEM_SELECTED, handleMenuItemSelected);
+				removeEventListener(HCarouselIndexChanging.INDEX_CHANGING, handleCarouselIndexChanging);
+			}
+			
+			protected function handleCarouselIndexChanging(event:HCarouselIndexChanging):void
+			{
+				var item:HCarouselItem = _heroCarouselItems[heros.currentIndex];
+				addItemButton.visible = item.isMenuItem;
 			}
 			
 		]]>
@@ -92,7 +120,7 @@
 	<carousel:HCarousel id="heros" x="0" y="0" width="768" height="449" carouselItems="{_heroCarouselItems}" />
 	<s:Image source="assets/miscUI/menuCarouselShadow.png" x="0" y="446" />
 	
-	<s:Button skinClass="skins.CarouselOrderButtonSkin" x="29" y="321" click="addItemFromImageCarouselToOrder()" />
+	<s:Button id="addItemButton" skinClass="skins.CarouselOrderButtonSkin" x="29" y="321" click="addItemFromImageCarouselToOrder()" />
 	
 	<s:Rect width="385" height="1" x="0" y="450">
 		<s:fill>

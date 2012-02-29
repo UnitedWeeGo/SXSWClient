@@ -8,6 +8,7 @@ package vo
 	{
 		public var uuid:String;
 		public var name:String;
+		public var categoryFriendlyName:String;
 		public var menuItems:ArrayCollection;
 		
 		public function MenuSubCategory()
@@ -23,6 +24,7 @@ package vo
 			for (var b:int=0; b<menuItemList.length(); b++)
 			{
 				var mi:MenuItem = new MenuItem();
+				mi.categoryFriendlyName = categoryFriendlyName;
 				mi.processConfigXML(menuItemList[b]);
 				menuItems.addItem(mi);
 			}

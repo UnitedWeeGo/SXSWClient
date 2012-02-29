@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
-		xmlns:s="library://ns.adobe.com/flex/spark" backgroundAlpha="0">
+		xmlns:s="library://ns.adobe.com/flex/spark" backgroundAlpha="0" creationComplete="view1_creationCompleteHandler(event)" removedFromStage="view1_removedFromStageHandler(event)">
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
@@ -8,6 +8,7 @@
 	<fx:Script>
 		<![CDATA[
 			import mx.collections.ArrayCollection;
+			import mx.events.FlexEvent;
 			
 			private var _carouselItems:ArrayCollection;
 			
@@ -31,6 +32,21 @@
 				return selectedIndex;
 			}
 
+			protected function view1_creationCompleteHandler(event:FlexEvent):void
+			{
+				pagedList.dataGroup.addEventListener(FlexEvent.UPDATE_COMPLETE, dataGroupUpdateComplete);
+			}
+			private function dataGroupUpdateComplete(event:FlexEvent):void
+			{
+				var ev:HCarouselIndexChanging = new HCarouselIndexChanging(HCarouselIndexChanging.INDEX_CHANGING, true);
+				dispatchEvent(ev);
+			}
+			
+			protected function view1_removedFromStageHandler(event:Event):void
+			{
+				pagedList.dataGroup.removeEventListener(FlexEvent.UPDATE_COMPLETE, dataGroupUpdateComplete);
+			}
+			
 		]]>
 	</fx:Script>
 	

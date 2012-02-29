@@ -8,6 +8,7 @@ package events
 	{
 		public static const MENU_ITEM_EDIT:String = 'menuItemEdit';
 		public static const MENU_ITEM_REMOVE:String = 'menuItemRemove';
+		public static const MENU_ITEM_DUPE:String = 'menuItemDupe';
 		public var menuItem:MenuItem;
 		
 		public function MenuItemEdit(type:String, bubbles:Boolean=false, cancelable:Boolean=false)

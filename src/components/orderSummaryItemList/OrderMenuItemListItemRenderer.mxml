@@ -31,6 +31,12 @@
 				ev.menuItem = MenuItem(data);
 				dispatchEvent(ev);
 			}
+			protected function dupeItemClick(event:MouseEvent):void
+			{
+				var ev:MenuItemEdit = new MenuItemEdit(MenuItemEdit.MENU_ITEM_DUPE, true);
+				ev.menuItem = MenuItem(data);
+				dispatchEvent(ev);
+			}
 			private function setPriceLabel():void
 			{
 				var mi:MenuItem = MenuItem(super.data);
@@ -61,7 +67,7 @@
 	<s:Label id="price" right="123" verticalCenter="0" styleName="orderSummaryListItemPrice" />
 	
 	<s:Button visible="true" click="removeItemClick(event)" skinClass="skins.ListMinusItemButtonSkin" verticalCenter="0" x="667"/>
-	<s:Button visible="true" click="removeItemClick(event)" skinClass="skins.ListPlusItemButtonSkin" verticalCenter="0" x="704"/>
+	<s:Button visible="true" click="dupeItemClick(event)" skinClass="skins.ListPlusItemButtonSkin" verticalCenter="0" x="704"/>
 	
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->

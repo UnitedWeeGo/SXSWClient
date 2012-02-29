@@ -29,5 +29,28 @@ package vo
 			name = xml.name.valueOf();
 			addlCost = isNaN( parseFloat(xml.@addlCost) ) ? 0 : parseFloat(xml.@addlCost);
 		}
+		public function clone():MenuItemOption
+		{
+			var mio:MenuItemOption = new MenuItemOption();
+//			mio.uuid = uuid;
+			mio.name = name;
+			mio.addlCost = addlCost;
+			mio.addedOption = addedOption;
+			mio.isSizeUpgrade = isSizeUpgrade;
+			return mio;
+		}
+		public function getXML():XML
+		{
+			var xml:XML = 
+				<MenuItemOption addlCost={addlCost}>
+					<name>{cdata(name)}</name>
+				</MenuItemOption>;
+			
+			return xml;
+		}
+		private function cdata(data:String):XML 
+		{
+			return new XML("<![CDATA[" + data + "]]>");
+		}
 	}
 }
