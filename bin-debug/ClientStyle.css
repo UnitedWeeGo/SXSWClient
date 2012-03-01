@@ -215,14 +215,6 @@ s|SpinnerList {
 	color: #171717;
 	
 }
-/**
-s|SpinnerListItemRenderer {
-	paddingTop : 5;
-	paddingBottom : 5;
-	paddingLeft : 5;
-	paddingRight : 5;
-}
-*/
 
 s|Label.sizesLabel
 {
