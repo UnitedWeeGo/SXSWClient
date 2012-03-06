@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<config isFreePromotion="true" instanceId="26" endpoint="http://local.orderservice.com/placeorder.php">
+<config isFreePromotion="true" instanceId="26" endpoint="http://theideaserver.com/sxsw/public/placeorder.php">
 <!-- <config isFreePromotion="true" instanceId="26" endpoint="http://clients.velloff.com/SapientApp/public/placeorder.php"> -->
 	<homeCarouselImages>
 		<image source="assets/homeCarouselImages/home_1.jpg" />
-		<image source="assets/homeCarouselImages/ProductHeroFPO.jpg" />
+		<image source="assets/homeCarouselImages/home_2.jpg" />
+		<image source="assets/homeCarouselImages/home_3.jpg" allowsSubmission="525,236,125,125"/>
 	</homeCarouselImages>
 
 	<MenuCategory>
@@ -12,7 +13,7 @@
 		<MenuSubCategory>
 			<name><![CDATA[Deli Sandwiches]]></name>
 			
-			<MenuItem itemPrice="3.30" heroSource="assets/menuItemCarouselImages/ProductHeroFPO.jpg">
+			<MenuItem itemPrice="0.00" heroSource="assets/menuItemCarouselImages/Sub_SpringBreak.jpg">
 				<name><![CDATA[Spring Break]]></name>
 				
 				<MenuItemOption default="true">
@@ -30,23 +31,23 @@
 				<MenuItemOption default="true">
 					<name><![CDATA[Tomato]]></name>
 				</MenuItemOption>
-				<MenuItemOption addlCost="1.40">
+				<MenuItemOption addlCost="0.00">
 					<name><![CDATA[Ranch Dressing]]></name>
 				</MenuItemOption>
 				
 				<!-- The size options component is static (due to design), 6 and 12 inches buttons -->
-				<MenuItemOption sizeUpgradeOption="true" addlCost="4.00">
+				<MenuItemOption sizeUpgradeOption="true" addlCost="0.00">
 					<name><![CDATA[Upgrade to 12 inch sandwich]]></name>
 				</MenuItemOption>
 				
 				<!-- Optional items, not active by default -->
-				<MenuItemOption addlCost="2.40">
+				<MenuItemOption addlCost="0.00">
 					<name><![CDATA[Roast beef]]></name>
 				</MenuItemOption>
-				<MenuItemOption addlCost=".40">
+				<MenuItemOption addlCost=".00">
 					<name><![CDATA[Cheddar]]></name>
 				</MenuItemOption>
-				<MenuItemOption addlCost=".80">
+				<MenuItemOption addlCost=".00">
 					<name><![CDATA[Provolone]]></name>
 				</MenuItemOption>
 				<MenuItemOption>
@@ -60,7 +61,7 @@
 				</MenuItemOption>
 			</MenuItem>
 			
-			<MenuItem itemPrice="0" heroSource="assets/menuItemCarouselImages/ProductHeroFPO.jpg">
+			<MenuItem itemPrice="0" heroSource="assets/menuItemCarouselImages/Sub_Detention.jpg">
 				<name><![CDATA[Detention]]></name>
 				
 				<MenuItemOption  default="true">
@@ -92,7 +93,7 @@
 				</MenuItemOption>
 				
 				<!-- The size options component is static (due to design), 6 and 12 inches buttons -->
-				<MenuItemOption sizeUpgradeOption="true" addlCost="4.00">
+				<MenuItemOption sizeUpgradeOption="true" addlCost="0.00">
 					<name><![CDATA[Upgrade to 12 inch sandwich]]></name>
 				</MenuItemOption>
 			</MenuItem>
@@ -101,7 +102,7 @@
 		
 		<MenuSubCategory>
 			<name><![CDATA[Veggie Sandwiches]]></name>
-			<MenuItem itemPrice="0" heroSource="assets/menuItemCarouselImages/ProductHeroFPO.jpg">
+			<MenuItem itemPrice="0" heroSource="assets/menuItemCarouselImages/Sub_Librarian.jpg">
 				<name><![CDATA[The Librarian]]></name>
 				
 				<MenuItemOption  default="true">
@@ -121,7 +122,7 @@
 				</MenuItemOption>
 				
 				<!-- The size options component is static (due to design), 6 and 12 inches buttons -->
-				<MenuItemOption sizeUpgradeOption="true" addlCost="4.00">
+				<MenuItemOption sizeUpgradeOption="true" addlCost="0.00">
 					<name><![CDATA[Upgrade to 12 inch sandwich]]></name>
 				</MenuItemOption>
 				
@@ -149,16 +150,16 @@
 		<MenuSubCategory>
 			<name><![CDATA[Miss Vickie's Kettle Chips]]></name>
 			
-			<MenuItem itemPrice=".50" heroSource="assets/menuItemCarouselImages/ProductHeroFPO.jpg">
+			<MenuItem itemPrice=".00">
 				<name><![CDATA[Jalapeno]]></name>
 			</MenuItem>
-			<MenuItem itemPrice=".50">
+			<MenuItem itemPrice=".00">
 				<name><![CDATA[Simply Sea Salt]]></name>
 			</MenuItem>
-			<MenuItem itemPrice=".50">
+			<MenuItem itemPrice=".00">
 				<name><![CDATA[Smokehouse BBQ]]></name>
 			</MenuItem>
-			<MenuItem itemPrice=".50">
+			<MenuItem itemPrice=".00">
 				<name><![CDATA[Salt & Vinegar]]></name>
 			</MenuItem>
 		</MenuSubCategory>
@@ -173,7 +174,7 @@
 			<MenuItem itemPrice="0">
 				<name><![CDATA[Dublin Dr. Pepper]]></name>
 			</MenuItem>
-			<MenuItem itemPrice="0" heroSource="assets/menuItemCarouselImages/ProductHeroFPO.jpg">
+			<MenuItem itemPrice="0">
 				<name><![CDATA[Mexican Coke]]></name>
 			</MenuItem>
 			<MenuItem itemPrice="0">
@@ -186,7 +187,7 @@
 			<MenuItem itemPrice="0">
 				<name><![CDATA[Water]]></name>
 			</MenuItem>
-			<MenuItem itemPrice="0" heroSource="assets/menuItemCarouselImages/ProductHeroFPO.jpg">
+			<MenuItem itemPrice="0">
 				<name><![CDATA[Lemonade]]></name>
 			</MenuItem>
 			<MenuItem itemPrice="0">

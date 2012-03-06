@@ -2,16 +2,65 @@
 <s:View xmlns:fx="http://ns.adobe.com/mxml/2009"
 		xmlns:s="library://ns.adobe.com/flex/spark"
 		xmlns:carousel="components.carousel.*"
+		creationComplete="view1_creationCompleteHandler(event)" 
+		removedFromStage="view1_removedFromStageHandler(event)"
 		title="" backgroundAlpha="0">
 	<fx:Script>
 		<![CDATA[
+			import components.carousel.HCarouselIndexChanging;
+			import components.carousel.HCarouselItem;
+			import components.userInfoModal.UserInfoModal;
+			
 			import model.ConfigModel;
+			
+			import mx.collections.ArrayCollection;
+			import mx.events.FlexEvent;
+			
+			[Bindable]
+			private var _heroCarouselItems:ArrayCollection;
+			
+			protected function view1_creationCompleteHandler(event:FlexEvent):void
+			{
+				_heroCarouselItems = ConfigModel.getInstance().getHomeCarouselItems();
+				addEventListener(HCarouselIndexChanging.INDEX_CHANGING, handleCarouselIndexChanging);
+			}
+			
+			protected function view1_removedFromStageHandler(event:Event):void
+			{
+				removeEventListener(HCarouselIndexChanging.INDEX_CHANGING, handleCarouselIndexChanging);
+			}
+			
+			
+			protected function handleCarouselIndexChanging(event:HCarouselIndexChanging):void
+			{
+				var item:HCarouselItem = _heroCarouselItems[heros.currentIndex];
+				sendInfoButton.visible = item.allowsSubmission;
+				if(item.allowsSubmission)
+				{
+					sendInfoButton.x = item.submissionButtonDimensions.x;
+					sendInfoButton.y = item.submissionButtonDimensions.y;
+					sendInfoButton.width = item.submissionButtonDimensions.width;
+					sendInfoButton.height = item.submissionButtonDimensions.height;
+				}
+			}
+		
+			private function submitCustomerInformation():void
+			{
+				trace('show customer information modal');
+				var alertWindow:UserInfoModal = new UserInfoModal();
+				alertWindow.width = stage.width;
+				alertWindow.height = stage.height;
+				alertWindow.x = 0;
+				alertWindow.y = 0;
+				alertWindow.open(this, true);
+			}
 		]]>
 	</fx:Script>
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	
-	<carousel:HCarousel x="0" y="0" width="100%" height="100%" carouselItems="{ConfigModel.getInstance().heroCarouselItems}" />
+	<carousel:HCarousel id="heros" x="0" y="0" width="100%" height="100%" carouselItems="{ConfigModel.getInstance().heroCarouselItems}" />
+	<s:Button label="Submit Customer Information" alpha="0" id="sendInfoButton" x="29" y="321" visible="false" click="submitCustomerInformation()"/>
 	
 </s:View>

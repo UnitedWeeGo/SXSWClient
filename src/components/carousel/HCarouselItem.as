@@ -1,10 +1,14 @@
 package components.carousel
 {
+	import flash.geom.Rectangle;
+
 	public class HCarouselItem
 	{
 		private var _imagePath:String;
 		private var _uuid:String;
 		private var _isMenuItem:Boolean;
+		private var _allowsSubmission:Boolean;
+		private var _submissionButtonDimensions:Rectangle;
 		
 		public function HCarouselItem()
 		{
@@ -40,6 +44,24 @@ package components.carousel
 			_isMenuItem = value;
 		}
 
-
+		public function get allowsSubmission():Boolean
+		{
+			return _allowsSubmission;
+		}
+		
+		public function set allowsSubmission(value:Boolean):void
+		{
+			_allowsSubmission = value;
+		}
+		
+		public function get submissionButtonDimensions():Rectangle
+		{
+			return _submissionButtonDimensions;
+		}
+		
+		public function set submissionButtonDimensions(value:Rectangle):void
+		{
+			_submissionButtonDimensions = value;
+		}
 	}
 }

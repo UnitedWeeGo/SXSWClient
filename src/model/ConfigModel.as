@@ -3,6 +3,7 @@ package model
 	import components.carousel.HCarouselItem;
 	
 	import flash.events.Event;
+	import flash.geom.Rectangle;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
 	
@@ -61,6 +62,21 @@ package model
 			{
 				var ci:HCarouselItem = new HCarouselItem();
 				ci.imagePath = homeCarouselImageList[a].@source;
+				if(homeCarouselImageList[a].hasOwnProperty("@allowsSubmission"))
+				{
+					ci.allowsSubmission=true;
+					var coords:Array = homeCarouselImageList[a].@allowsSubmission.toString().split(",");
+					
+					//strip out non-numeric characters
+					for(var i:int=0; i<coords.length; i++)
+					{
+						coords[i] = (coords[i] as String).replace(/\D/g, "");
+					}
+					
+					var rect:Rectangle = new Rectangle(Number(coords[0]), Number(coords[1]), Number(coords[2]), Number(coords[3]));
+					ci.submissionButtonDimensions = rect;
+				}
+
 				_heroCarouselItems.addItem(ci);
 			}
 			// MenuCategory passed XML, child objects created internally
@@ -71,6 +87,11 @@ package model
 				mc.processConfigXML(menuCategoryList[b]);
 				_menuCategories.addItem(mc);
 			}
+		}
+		
+		public function getHomeCarouselItems():ArrayCollection
+		{
+			return _heroCarouselItems;
 		}
 		
 		public function getCarouselItemsPerMenuCategoryWithIndex(index:int):ArrayCollection
