@@ -59,6 +59,8 @@
 				<key>iPad</key>
 				<true/>
 			</dict>
+			<key>UIPrerenderedIcon</key>
+			<true/>
 		</dict>
 	</array>
 </dict>

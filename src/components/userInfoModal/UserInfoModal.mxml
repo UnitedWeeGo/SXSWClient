@@ -10,6 +10,7 @@
 			
 			import mx.events.FlexEvent;
 			import mx.events.ValidationResultEvent;
+			import mx.validators.EmailValidator;
 			import mx.validators.PhoneNumberValidator;
 			
 			import service.OrderService;
@@ -20,6 +21,9 @@
 			
 			private var _customer:Customer;
 			private var _orderService:OrderService;
+			
+			private var _emailValid:Boolean;
+			private var _phoneValid:Boolean;
 			
 			protected function closeButton_clickHandler(event:MouseEvent):void
 			{
@@ -49,10 +53,39 @@
 			
 			private function validateFields():void
 			{
+				_emailValid = _phoneValid = false;
+				
+				if(!userName.text || userName.text== "")
+				{
+					showError('Name is Invalid.');
+					return;
+				}
+				
+				if(!userTitle.text || userTitle.text== "" || userTitle.text.indexOf(",") == -1)
+				{
+					showError('Company,Title is Invalid.');
+					return;
+				}
+				
 				phoneVal.validate(userPhone.text);
+				emailVal.validate(userEmail.text);
 			}
 			
 			protected function phoneVal_validHandler(event:ValidationResultEvent):void
+			{
+				_phoneValid = true;
+				if(_emailValid)
+					sendUserInformation();
+			}
+			
+			protected function emailVal_validHandler(event:ValidationResultEvent):void
+			{
+				_emailValid = true;
+				if(_phoneValid)
+					sendUserInformation();
+			}
+			
+			private function sendUserInformation():void
 			{
 				_customer.name = userName.text;
 				_customer.title = userTitle.text;
@@ -77,16 +110,25 @@
 			private function handleOrderFail(event:ServiceEvent):void
 			{
 //				trace('order submit fail');
-				userInfoEntry.visible = false;
-				errorMessage.text = 'Network Error, Try Again.';
-				errorModal.visible = true;
+				showError('Network Error, Try Again.');
 			}
 			
 			protected function phoneVal_invalidHandler(event:ValidationResultEvent):void
 			{
 //				trace(event.message);
+				showError('Phone Number is Invalid.');
+			}
+			
+			protected function emailVal_invalidHandler(event:ValidationResultEvent):void
+			{
+				//				trace(event.message);
+				showError('Email is Invalid.');
+			}
+			
+			private function showError(msg:String):void
+			{
 				userInfoEntry.visible = false;
-				errorMessage.text = 'Phone Number is Invalid.';
+				errorMessage.text = msg;
 				errorModal.visible = true;
 			}
 			
@@ -136,6 +178,7 @@
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 		<mx:PhoneNumberValidator id="phoneVal" allowedFormatChars="-" valid="phoneVal_validHandler(event)" invalid="phoneVal_invalidHandler(event)" />
+		<mx:EmailValidator id="emailVal" valid="emailVal_validHandler(event)" invalid="emailVal_invalidHandler(event)" />
 	</fx:Declarations>
 </s:SkinnablePopUpContainer>
 
